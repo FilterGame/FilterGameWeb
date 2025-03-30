@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>魔物少女シリーズポータルサイト</title>
+    <meta name="description" content="Monster Girl Series Portal Site" />
+    <!-- 引入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-white">
+    <!-- 固定頂部導覽 -->
+    <div id="top-navigation" class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+          <!-- Logo -->
+          <div class="font-bold text-lg">
+            <a href="/">INSIDE SYSTEM</a>
+          </div>
+          <!-- 導覽選單 -->
+          <nav class="flex space-x-6">
+            <!-- HOME 區塊 -->
+            <div class="relative menu-section">
+              <button class="flex items-center space-x-1 py-2 font-medium hover:text-blue-600">
+                <span>HOME</span>
+                <!-- Chevron Down Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </button>
+              <div class="dropdown-menu absolute top-full left-0 w-48 bg-white shadow-lg rounded-b-md py-2 z-50 hidden">
+                <a href="/" class="block px-4 py-2 hover:bg-gray-100 text-sm">トップページ</a>
+                <a href="/news" class="block px-4 py-2 hover:bg-gray-100 text-sm">ニュース</a>
+                <a href="/updates" class="block px-4 py-2 hover:bg-gray-100 text-sm">更新情報</a>
+              </div>
+            </div>
+            <!-- Game 區塊 -->
+            <div class="relative menu-section">
+              <button class="flex items-center space-x-1 py-2 font-medium hover:text-blue-600">
+                <span>Game</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </button>
+              <div class="dropdown-menu absolute top-full left-0 w-48 bg-white shadow-lg rounded-b-md py-2 z-50 hidden">
+                <a href="/games" class="block px-4 py-2 hover:bg-gray-100 text-sm">ゲーム一覧</a>
+                <a href="/new-games" class="block px-4 py-2 hover:bg-gray-100 text-sm">新作ゲーム</a>
+                <a href="/popular-games" class="block px-4 py-2 hover:bg-gray-100 text-sm">人気ゲーム</a>
+                <a href="/downloads" class="block px-4 py-2 hover:bg-gray-100 text-sm">ダウンロード</a>
+              </div>
+            </div>
+            <!-- 企劃 區塊 -->
+            <div class="relative menu-section">
+              <button class="flex items-center space-x-1 py-2 font-medium hover:text-blue-600">
+                <span>企劃</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </button>
+              <div class="dropdown-menu absolute top-full left-0 w-48 bg-white shadow-lg rounded-b-md py-2 z-50 hidden">
+                <a href="/planning" class="block px-4 py-2 hover:bg-gray-100 text-sm">企画概要</a>
+                <a href="/dev-blog" class="block px-4 py-2 hover:bg-gray-100 text-sm">開発ブログ</a>
+                <a href="/roadmap" class="block px-4 py-2 hover:bg-gray-100 text-sm">今後の予定</a>
+              </div>
+            </div>
+            <!-- 聯絡我 區塊 -->
+            <div class="relative menu-section">
+              <button class="flex items-center space-x-1 py-2 font-medium hover:text-blue-600">
+                <span>聯絡我</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </button>
+              <div class="dropdown-menu absolute top-full left-0 w-48 bg-white shadow-lg rounded-b-md py-2 z-50 hidden">
+                <a href="/contact" class="block px-4 py-2 hover:bg-gray-100 text-sm">お問い合わせ</a>
+                <a href="/faq" class="block px-4 py-2 hover:bg-gray-100 text-sm">よくある質問</a>
+                <a href="/support" class="block px-4 py-2 hover:bg-gray-100 text-sm">サポート</a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+    <!-- 內容區，頂部留白避免被 fixed 導覽遮住 -->
+    <div class="pt-20">
+      <!-- 頁首 -->
+      <header class="bg-white py-4 text-center border-b">
+        <h1 class="text-xl md:text-2xl font-bold text-gray-800">魔物少女シリーズポータルサイト</h1>
+      </header>
+
+      <!-- 上方社群連結 -->
+      <nav class="grid grid-cols-6 w-full">
+        <a href="#" class="bg-blue-500 py-2 text-center text-white hover:bg-blue-600 transition-colors">
+          <!-- Twitter Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.43 2.6a9.72 9.72 0 0 1-3.1 1.2 4.47 4.47 0 0 0-7.64 4.08A12.7 12.7 0 0 1 3 4a4.48 4.48 0 0 0 1.38 6A4.41 4.41 0 0 1 2 9.65v.05a4.48 4.48 0 0 0 3.6 4.38 4.52 4.52 0 0 1-2 .08 4.48 4.48 0 0 0 4.19 3.11A9 9 0 0 1 1 19.54a12.8 12.8 0 0 0 6.93 2.03c8.31 0 12.84-6.87 12.84-12.84 0-.2 0-.42-.01-.63A9.19 9.19 0 0 1 23 3z"></path>
+          </svg>
+        </a>
+        <a href="#" class="bg-[#3b5998] py-2 text-center text-white hover:bg-[#2d4373] transition-colors">
+          <!-- Facebook Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2v-2.3c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V9h2.2l-.3 3h-1.9v7A10 10 0 0 0 22 12z"></path>
+          </svg>
+        </a>
+        <a href="#" class="bg-purple-600 py-2 text-center text-white hover:bg-purple-700 transition-colors">
+          <!-- Instagram Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37a4 4 0 1 1-4.63-4.63 4 4 0 0 1 4.63 4.63z"></path>
+            <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="#" class="bg-red-600 py-2 text-center text-white hover:bg-red-700 transition-colors">
+          <!-- Youtube Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M10 15l5.19-3L10 9z"></path>
+            <path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.7-.8-2.1-.9C16.7 4 12 4 12 4s-4.7 0-6.9.1c-.4 0-1.3 0-2.1.9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.6C2 14.4 2.2 16 2.2 16s.2 1.4.8 2c.8.8 1.8.8 2.2.9C7.3 20 12 20 12 20s4.7 0 6.9-.1c.4 0 1.3 0 2.1-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.6c0-1.6-.2-3.2-.2-3.2zM9.8 14.2V9.8L15.8 12l-6 2.2z"></path>
+          </svg>
+        </a>
+        <a href="#" class="bg-pink-500 py-2 text-center text-white hover:bg-pink-600 transition-colors">
+          <!-- Mail Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 4h16v16H4z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </a>
+        <a href="#" class="bg-green-500 py-2 text-center text-white hover:bg-green-600 transition-colors">
+          <!-- Info Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+        </a>
+      </nav>
+
+      <!-- 主要內容 -->
+      <main class="container mx-auto px-4 py-6">
+        <!-- Hero 區塊 -->
+        <section class="mb-10">
+          <div class="relative">
+            <img src="placeholder.svg?height=400&width=800" width="800" height="400" alt="Game Screenshot" class="w-full h-auto rounded-lg shadow-md" />
+            <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4">
+              <h2 class="text-2xl md:text-3xl font-bold text-white">アドベンチャーズ</h2>
+            </div>
+          </div>
+        </section>
+
+        <!-- 話題のスクマギ! 區塊 -->
+        <section class="mb-10">
+          <h2 class="text-xl font-bold mb-4 bg-gray-100 p-2 border-l-4 border-blue-500">話題のスクマギ!</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=150&width=150&text=Character1" width="150" height="150" alt="Character 1" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=150&width=150&text=Character2" width="150" height="150" alt="Character 2" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=150&width=150&text=Character3" width="150" height="150" alt="Character 3" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=150&width=150&text=Character4" width="150" height="150" alt="Character 4" class="w-full h-auto" />
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- 最新の画像 區塊 -->
+        <section class="mb-10">
+          <h2 class="text-xl font-bold mb-4 bg-gray-100 p-2 border-l-4 border-blue-500">最新の画像</h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- 12 張圖片 -->
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image1" width="120" height="120" alt="Game Image 1" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image2" width="120" height="120" alt="Game Image 2" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image3" width="120" height="120" alt="Game Image 3" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image4" width="120" height="120" alt="Game Image 4" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image5" width="120" height="120" alt="Game Image 5" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image6" width="120" height="120" alt="Game Image 6" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image7" width="120" height="120" alt="Game Image 7" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image8" width="120" height="120" alt="Game Image 8" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image9" width="120" height="120" alt="Game Image 9" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image10" width="120" height="120" alt="Game Image 10" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image11" width="120" height="120" alt="Game Image 11" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=120&width=120&text=Image12" width="120" height="120" alt="Game Image 12" class="w-full h-auto" />
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- 魔物少女アニメ情報 區塊 -->
+        <section class="mb-10">
+          <h2 class="text-xl font-bold mb-4 bg-gray-100 p-2 border-l-4 border-purple-500">魔物少女アニメ情報</h2>
+          <div class="space-y-4">
+            <!-- 3 個動畫卡片 -->
+            <div class="overflow-hidden">
+              <div class="relative">
+                <img src="placeholder.svg?height=200&width=800&text=Anime+Scene+1" width="800" height="200" alt="Anime Scene 1" class="w-full h-auto" />
+                <div class="absolute top-2 left-2 bg-purple-600 text-white px-2 py-1 text-sm rounded">Episode 1</div>
+              </div>
+            </div>
+            <div class="overflow-hidden">
+              <div class="relative">
+                <img src="placeholder.svg?height=200&width=800&text=Anime+Scene+2" width="800" height="200" alt="Anime Scene 2" class="w-full h-auto" />
+                <div class="absolute top-2 left-2 bg-purple-600 text-white px-2 py-1 text-sm rounded">Episode 2</div>
+              </div>
+            </div>
+            <div class="overflow-hidden">
+              <div class="relative">
+                <img src="placeholder.svg?height=200&width=800&text=Anime+Scene+3" width="800" height="200" alt="Anime Scene 3" class="w-full h-auto" />
+                <div class="absolute top-2 left-2 bg-purple-600 text-white px-2 py-1 text-sm rounded">Episode 3</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- キャラクター 區塊 -->
+        <section class="mb-10">
+          <h2 class="text-xl font-bold mb-4 bg-gray-100 p-2 border-l-4 border-pink-500">キャラクター</h2>
+          <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=80&width=80&text=Char1" width="80" height="80" alt="Character 1" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=80&width=80&text=Char2" width="80" height="80" alt="Character 2" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=80&width=80&text=Char3" width="80" height="80" alt="Character 3" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=80&width=80&text=Char4" width="80" height="80" alt="Character 4" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=80&width=80&text=Char5" width="80" height="80" alt="Character 5" class="w-full h-auto" />
+              </div>
+            </a>
+            <a href="#">
+              <div class="overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="placeholder.svg?height=80&width=80&text=Char6" width="80" height="80" alt="Character 6" class="w-full h-auto" />
+              </div>
+            </a>
+          </div>
+          <div class="mt-4 flex justify-end">
+            <button class="border border-purple-600 text-purple-600 px-4 py-2 hover:bg-purple-50">全キャラクターを見る</button>
+          </div>
+        </section>
+
+        <!-- 高得点 區塊 -->
+        <section class="mb-10">
+          <h2 class="text-xl font-bold mb-4 bg-gray-100 p-2 border-l-4 border-yellow-500">高得点</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="overflow-hidden p-4 text-center hover:shadow-lg transition-shadow relative">
+              <div class="mb-2 relative">
+                <img src="placeholder.svg?height=100&width=100&text=Game1" width="100" height="100" alt="Game 1" class="w-full h-auto" />
+                <div class="absolute -top-2 -left-2 bg-yellow-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">1位</div>
+              </div>
+              <p class="text-sm font-medium">ゲーム 1</p>
+            </div>
+            <div class="overflow-hidden p-4 text-center hover:shadow-lg transition-shadow">
+              <div class="mb-2">
+                <img src="placeholder.svg?height=100&width=100&text=Game2" width="100" height="100" alt="Game 2" class="w-full h-auto" />
+              </div>
+              <p class="text-sm font-medium">ゲーム 2</p>
+            </div>
+            <div class="overflow-hidden p-4 text-center hover:shadow-lg transition-shadow">
+              <div class="mb-2">
+                <img src="placeholder.svg?height=100&width=100&text=Game3" width="100" height="100" alt="Game 3" class="w-full h-auto" />
+              </div>
+              <p class="text-sm font-medium">ゲーム 3</p>
+            </div>
+            <div class="overflow-hidden p-4 text-center hover:shadow-lg transition-shadow">
+              <div class="mb-2">
+                <img src="placeholder.svg?height=100&width=100&text=Game4" width="100" height="100" alt="Game 4" class="w-full h-auto" />
+              </div>
+              <p class="text-sm font-medium">ゲーム 4</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 人気キャラ 區塊 -->
+        <section class="mb-10">
+          <h2 class="text-xl font-bold mb-4 bg-gray-100 p-2 border-l-4 border-pink-500">人気キャラ</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="overflow-hidden relative hover:shadow-lg transition-shadow">
+              <div class="bg-gradient-to-r from-pink-500 to-purple-500 text-white p-2 text-center">
+                <p class="font-bold">魔物少女シリーズ 1</p>
+              </div>
+              <div class="p-4 flex items-center justify-center">
+                <img src="placeholder.svg?height=80&width=300&text=Popular+Characters+1" width="300" height="80" alt="Popular Characters 1" class="h-auto" />
+              </div>
+            </div>
+            <div class="overflow-hidden relative hover:shadow-lg transition-shadow">
+              <div class="bg-gradient-to-r from-pink-500 to-purple-500 text-white p-2 text-center">
+                <p class="font-bold">魔物少女シリーズ 2</p>
+              </div>
+              <div class="p-4 flex items-center justify-center">
+                <img src="placeholder.svg?height=80&width=300&text=Popular+Characters+2" width="300" height="80" alt="Popular Characters 2" class="h-auto" />
+              </div>
+            </div>
+            <div class="overflow-hidden relative hover:shadow-lg transition-shadow">
+              <div class="bg-gradient-to-r from-pink-500 to-purple-500 text-white p-2 text-center">
+                <p class="font-bold">魔物少女シリーズ 3</p>
+              </div>
+              <div class="p-4 flex items-center justify-center">
+                <img src="placeholder.svg?height=80&width=300&text=Popular+Characters+3" width="300" height="80" alt="Popular Characters 3" class="h-auto" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- お問い合わせ 區塊 -->
+        <section class="mb-10">
+          <h2 class="text-xl font-bold mb-4 bg-gray-100 p-2 border-l-4 border-gray-500">お問い合わせ</h2>
+          <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+            <div class="flex-shrink-0">
+              <img src="placeholder.svg?height=60&width=60&text=Contact" width="60" height="60" alt="Contact" class="rounded" />
+            </div>
+            <div>
+              <h3 class="font-medium">お問い合わせはこちら</h3>
+              <p class="text-sm text-gray-600">ゲームに関するご質問やお問い合わせはこちらから</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 公司資訊 -->
+        <section class="text-center text-sm text-gray-600 mb-6">
+          <p>INSIDE SYSTEM © All Rights Reserved.</p>
+        </section>
+      </main>
+
+      <!-- 底部社群連結 -->
+      <nav class="grid grid-cols-6 w-full">
+        <a href="#" class="bg-blue-500 py-2 text-center text-white hover:bg-blue-600 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 22.43 2.6a9.72 9.72 0 0 1-3.1 1.2 4.47 4.47 0 0 0-7.64 4.08A12.7 12.7 0 0 1 3 4a4.48 4.48 0 0 0 1.38 6A4.41 4.41 0 0 1 2 9.65v.05a4.48 4.48 0 0 0 3.6 4.38 4.52 4.52 0 0 1-2 .08 4.48 4.48 0 0 0 4.19 3.11A9 9 0 0 1 1 19.54a12.8 12.8 0 0 0 6.93 2.03c8.31 0 12.84-6.87 12.84-12.84 0-.2 0-.42-.01-.63A9.19 9.19 0 0 1 23 3z"></path>
+          </svg>
+        </a>
+        <a href="#" class="bg-[#3b5998] py-2 text-center text-white hover:bg-[#2d4373] transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2v-2.3c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V9h2.2l-.3 3h-1.9v7A10 10 0 0 0 22 12z"></path>
+          </svg>
+        </a>
+        <a href="#" class="bg-purple-600 py-2 text-center text-white hover:bg-purple-700 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37a4 4 0 1 1-4.63-4.63 4 4 0 0 1 4.63 4.63z"></path>
+            <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="#" class="bg-red-600 py-2 text-center text-white hover:bg-red-700 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M10 15l5.19-3L10 9z"></path>
+            <path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.7-.8-2.1-.9C16.7 4 12 4 12 4s-4.7 0-6.9.1c-.4 0-1.3 0-2.1.9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.6C2 14.4 2.2 16 2.2 16s.2 1.4.8 2c.8.8 1.8.8 2.2.9C7.3 20 12 20 12 20s4.7 0 6.9-.1c.4 0 1.3 0 2.1-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.6c0-1.6-.2-3.2-.2-3.2zM9.8 14.2V9.8L15.8 12l-6 2.2z"></path>
+          </svg>
+        </a>
+        <a href="#" class="bg-pink-500 py-2 text-center text-white hover:bg-pink-600 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 4h16v16H4z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </a>
+        <a href="#" class="bg-green-500 py-2 text-center text-white hover:bg-green-600 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+        </a>
+      </nav>
+
+      <!-- 頁尾 -->
+      <footer class="bg-white py-4 text-center border-t">
+        <p class="text-sm text-gray-600">魔物少女シリーズポータルサイト</p>
+      </footer>
+    </div>
+
+    <!-- JavaScript：處理頂部選單下拉效果 -->
+    <script>
+      document.querySelectorAll('.menu-section').forEach(function(section) {
+        section.addEventListener('mouseenter', function() {
+          var dropdown = this.querySelector('.dropdown-menu');
+          if (dropdown) {
+            dropdown.classList.remove('hidden');
+          }
+        });
+        section.addEventListener('mouseleave', function() {
+          var dropdown = this.querySelector('.dropdown-menu');
+          if (dropdown) {
+            dropdown.classList.add('hidden');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
