@@ -805,11 +805,11 @@
       });
 
       // 綁定頁面中所有帶有 .zoom-image 類別的圖片點擊事件
-      document.querySelectorAll("img.zoom-image").forEach(img => {
-        img.addEventListener("click", function() {
-          openImageModal(this.src, this.alt);
-        });
-      });
+      //document.querySelectorAll("img.zoom-image").forEach(img => {
+      //  img.addEventListener("click", function() {
+      //    openImageModal(this.src, this.alt);
+      //  });
+      //});
 
 	  //讀CSV顯示圖片卡
 		fetch('/FilterGameWeb/WebAsset/Artis_Pic/Artis_Pic.csv')
@@ -832,7 +832,7 @@
 			const img = document.createElement('img');
 			img.src = item.image;
 			img.alt = item.description;
-			img.className = 'zoom-image';
+			img.className = 'click-image';
 			img.style.cursor = 'pointer';
 
 			// 選擇性加上編號
@@ -861,7 +861,7 @@
 		  });
 
 		  // 綁定所有圖片點擊事件
-		  document.querySelectorAll("img.zoom-image").forEach(img => {
+		  document.querySelectorAll("img.click-image").forEach(img => {
 			img.addEventListener("click", function() {
 			  openImageModal(this.src, this.alt);
 			});
