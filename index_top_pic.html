@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="siteTitle">FilterGame</title>
+    <meta name="description" content="Monster Girl Series Portal Site" data-i18n="[content]metaDescription" />
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+	
+		.img-container {
+		  display: flex;
+		  flex-direction: column;
+		  align-items: center;
+		}
+
+		.img-caption {
+		  color: white;
+		  margin-top: 10px;
+		  text-align: center;
+		}
+
+      .dark {
+        --background: 0 0% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 0 0% 3.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 0 0% 3.9%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 24 100% 50%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 0 0% 14.9%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 0 0% 14.9%;
+        --muted-foreground: 0 0% 63.9%;
+        --accent: 0 0% 14.9%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 14.9%;
+        --input: 0 0% 14.9%;
+        --ring: 24 100% 50%;
+      }
+
+      .media-row {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin: 40px auto;
+        max-width: 1200px;
+      }
+
+      .video-container,
+      .twitter-container {
+        flex: 1 1 560px;
+        max-width: 560px;
+      }
+
+      .video-container iframe,
+      .twitter-container iframe {
+        width: 100%;
+        height: 315px;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+
+      /* 遊戲卡片圖片放大效果 */
+      .zoom-image {
+        transition: transform 0.5s ease;
+        cursor: pointer;
+      }
+      .zoom-image:hover {
+        transform: scale(1.2);
+      }
+
+      /* Reset & 基本樣式 */
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background: #fff;
+        color: #333;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* 固定頂部導覽列 */
+      .fixed-top {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px;
+      }
+      .nav-items {
+        display: flex;
+        gap: 20px;
+      }
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      .dropdown > button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1em;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 150px;
+        background: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .dropdown-content a {
+        display: block;
+        padding: 10px;
+        font-size: 0.9em;
+      }
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      /* 語系選單 */
+      .lang-selector {
+        margin-left: auto;
+      }
+      .lang-selector select {
+        padding: 4px;
+        font-size: 0.9em;
+      }
+
+      /* 社群圖示導覽 */
+      .top-nav-icons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px 0;
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+      }
+      .top-nav-icons a {
+        flex: 1;
+        display: block;
+        text-align: center;
+        padding: 10px 0;
+        border-right: 1px solid #ccc;
+      }
+      .top-nav-icons a:last-child {
+        border-right: none;
+      }
+      .twitter { background: #1da1f2; color: #fff; }
+      .facebook { background: #3b5998; color: #fff; }
+      .instagram { background: #c13584; color: #fff; }
+      .youtube { background: #ff0000; color: #fff; }
+      .mail { background: #db4437; color: #fff; }
+      .info { background: #34a853; color: #fff; }
+
+      /* 標題、區塊與卡片 */
+      header, footer {
+        text-align: center;
+        padding: 20px 0;
+      }
+      section {
+        margin-bottom: 40px;
+      }
+      h2 {
+        padding: 10px;
+        background: #f0f0f0;
+        font-size: 1.2em;
+      }
+      .blue { border-left: 5px solid #007bff; }
+      .purple { border-left: 5px solid #800080; }
+      .pink { border-left: 5px solid #ff69b4; }
+      .yellow { border-left: 5px solid #ffd700; }
+      .gray { border-left: 5px solid #808080; }
+      .card {
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 4px;
+        text-align: center;
+        position: relative;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      /* Hero 區 */
+      .hero {
+        position: relative;
+        margin-bottom: 20px;
+      }
+      .hero img {
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .hero-text {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+        color: #fff;
+      }
+      /* 按鈕樣式 */
+      .button {
+        display: inline-block;
+        padding: 8px 16px;
+        border: 1px solid #888;
+        border-radius: 4px;
+        font-size: 0.9em;
+        cursor: pointer;
+      }
+      .button:hover {
+        background: #eee;
+      }
+      /* 排版輔助 */
+      .flex {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .flex-center {
+        justify-content: center;
+      }
+      .flex-between {
+        justify-content: space-between;
+      }
+      .flex-column {
+        flex-direction: column;
+      }
+      
+      /* 圖片 Modal 樣式 */
+      .img-modal {
+        display: none;
+        position: fixed;
+        z-index: 200;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        justify-content: center;
+        align-items: center;
+      }
+      .img-modal.active {
+        display: flex;
+      }
+      .img-modal img {
+        max-width: 90%;
+        max-height: 90%;
+      }
+      .img-modal .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 2rem;
+        color: #fff;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 固定頂部導覽列 -->
+    <div class="fixed-top">
+      <div class="container navbar">
+        <div class="logo">
+          <a href="/" data-i18n="nav.logo">FilterGame</a>
+        </div>
+        <div class="logo">
+          <a href="/">　</a>
+        </div>
+        <nav class="nav-items">
+          <div class="dropdown">
+            <button data-i18n="nav.home.title"> HOME ▼</button>
+            <div class="dropdown-content">
+              <a href="/" data-i18n="nav.home.item1">トップページ</a>
+              <a href="/updates" data-i18n="nav.home.item3">更新情報</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <button data-i18n="nav.game.title">Game ▼</button>
+            <div class="dropdown-content">
+              <a href="/games" data-i18n="nav.game.item1">ゲーム一覧</a>
+              <a href="/new-games" data-i18n="nav.game.item2">新作ゲーム</a>
+              <a href="/popular-games" data-i18n="nav.game.item3">人気ゲーム</a>
+              <a href="/downloads" data-i18n="nav.game.item4">ダウンロード</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <button data-i18n="nav.planning.title">企劃 ▼</button>
+            <div class="dropdown-content">
+              <a href="/planning" data-i18n="nav.planning.item1">企画概要</a>
+              <a href="/dev-blog" data-i18n="nav.planning.item2">開発ブログ</a>
+              <a href="/roadmap" data-i18n="nav.planning.item3">今後の予定</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <button data-i18n="nav.contact.title">聯絡我 ▼</button>
+            <div class="dropdown-content">
+              <a href="/contact" data-i18n="nav.contact.item1">お問い合わせ</a>
+              <a href="/faq" data-i18n="nav.contact.item2">よくある質問</a>
+              <a href="/support" data-i18n="nav.contact.item3">サポート</a>
+            </div>
+          </div>
+        </nav>
+        <!-- 語系選單 -->
+        <div class="lang-selector">
+          <select id="langSelect">
+            <option value="zh" data-i18n="lang.zh">中文</option>
+            <option value="en" data-i18n="lang.en">English</option>
+            <option value="ja" data-i18n="lang.ja">日本語</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- 為固定頂部導覽留出空間 -->
+    <div style="height: 60px;"></div>
+
+    <!-- 主要內容 -->
+    <div class="container">
+      <!-- 範例按鈕：點擊後顯示圖片 Modal (以範例圖片) -->
+      <div class="flex-center my-4">
+        <button id="sampleModalBtn" class="button">範例圖片 Modal</button>
+      </div>
+
+      <!-- 頁首 -->
+      <!-- 社群圖示導覽 -->
+      <nav class="top-nav-icons">
+        <a href="https://x.com/FilterGame_Dev" class="twitter">Twitter</a>
+        <a href="https://www.facebook.com/FilterGame" class="facebook">Facebook</a>
+        <a href="https://store.steampowered.com/app/2325390?utm_source=web" class="instagram">Steam</a>
+        <a href="https://www.youtube.com/@FilterGameDev" class="youtube">Youtube</a>
+        <a href="mailto:filtergametw@gmail.com" class="mail">Mail</a>
+        <a href="https://home.gamer.com.tw/creation.php?owner=kkll7952" class="info">Gamer</a>
+      </nav>
+
+      <!-- Hero 區 -->
+      <section class="hero">
+        <img src="WebAsset/library_hero.jpg" alt="Game Screenshot" class="zoom-image" />
+      </section>
+
+      <div class="media-row">
+        <!-- 左邊影片 -->
+        <div class="video-container">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/-TUGg3V_-1M?autoplay=1&mute=1&controls=0&loop=1&playlist=-TUGg3V_-1M"
+            title="YouTube video player"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <!-- 右邊 Twitter -->
+        <div class="twitter-container">
+          <a class="twitter-timeline"
+             href="https://twitter.com/FilterGame_Dev"
+             data-height="315"
+             data-theme="light">
+            Tweets by @FilterGame_Dev
+          </a>
+        </div>
+      </div>
+
+      <!-- 以下略其他內容 -->
+      <section>
+        <h2 class="blue mb-6" data-i18n="section.popularGames.title">開發遊戲列表!</h2>
+        <div id="featured-deals-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div>
+            <div class="border border-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+              <div class="relative h-48">
+                <a href="https://play.google.com/store/apps/details?id=com.konadev.ls2" target="_blank">
+                  <img src="WebAsset/Google_AirBoost.jfif" alt="AirBoost" class="object-cover absolute inset-0 w-full h-full zoom-image">
+                </a>
+                <div class="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded font-bold">free play!</div>
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold mb-1">AirBoost</h3>
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <span class="text-gray-500">GooglePlay商店 - 免費下載</span>  
+                  </div>
+                </div>
+              </div>
+            </div>         
+          </div>
+          <div>
+            <div class="border border-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+              <div class="relative h-48">
+                <a href="https://store.steampowered.com/app/2325390" target="_blank">
+                  <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2325390/header.jpg" alt="AirBoost" class="object-cover absolute inset-0 w-full h-full zoom-image">
+                </a>
+                <div class="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded font-bold">DEMO開放中!</div>
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold mb-1" data-i18n="steam_airboost_title">AirBoost:天空機士</h3>
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <span class="text-gray-500">Steam-2025發售預定</span>
+                  </div>
+                </div>
+              </div>
+            </div>         
+          </div>
+        </div>
+      </section>
+
+      <!-- 聯絡我們 -->
+      <section>
+        <h2 class="gray" data-i18n="section.contact.title">お問い合わせ</h2>
+        <div class="card" style="display: flex; align-items: center; gap: 10px; background: #f9f9f9; border-radius: 4px; padding: 10px;">
+          <img src="/placeholder.svg?height=60&width=60&text=Contact" alt="Contact" style="border-radius: 4px;" />
+          <div>
+            <h3 data-i18n="section.contact.card.title">お問い合わせ</h3>
+            <p style="font-size: 0.9em; color: #666;" data-i18n="section.contact.card.desc">ゲームに関するご質問やお問い合わせはこちらから</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 底部社群導覽 -->
+      <div class="container" style="margin-bottom: 20px;">
+        <nav class="top-nav-icons">
+          <a href="https://x.com/FilterGame_Dev" class="twitter">Twitter</a>
+          <a href="https://www.facebook.com/FilterGame" class="facebook">Facebook</a>
+          <a href="https://store.steampowered.com/app/2325390?utm_source=web" class="instagram">Steam</a>
+          <a href="https://www.youtube.com/@FilterGameDev" class="youtube">Youtube</a>
+          <a href="mailto:filtergametw@gmail.com" class="mail">Mail</a>
+          <a href="https://home.gamer.com.tw/creation.php?owner=kkll7952" class="info">Gamer</a>
+        </nav>
+      </div>
+
+      <!-- 頁尾 -->
+      <footer style="border-top: 1px solid #ccc; padding: 10px 0; text-align: center;">
+        <p data-i18n="footer.site">FilterGame遊戲開發</p>
+      </footer>
+      <!-- 版權資訊 -->
+      <section style="text-align: center; font-size: 0.9em; color: #666; margin-bottom: 20px;">
+        <p data-i18n="footer.copyright">FilterGame © All Rights Reserved.</p>
+      </section>
+    </div>
+
+    <!-- 圖片 Modal -->
+	<div id="imgModal" class="img-modal">
+	  <span class="close-btn" id="closeImgModal">&times;</span>
+
+	  <div class="img-container">
+		<img id="modalImg" src="WebAsset/Google_AirBoost.jfif" alt="Modal Image" />
+		<p class="img-caption">這是一段白色的描述文字</p>
+	  </div>
+	</div>
+
+    </div>
+
+    <script>
+      // 語系翻譯字典
+      const translations = {
+        en: {
+          siteTitle: "FilterGame",
+          metaDescription: "FilterGame Game Development.",
+          "nav.logo": "FilterGame ",
+          "nav.home.title": "Home ▼",
+          "nav.home.item1": "Home",
+          "nav.home.item2": "Game Info",
+          "nav.home.item3": "Team Introduction",
+          "nav.game.title": "Game ▼",
+          "nav.game.item1": "AirBoost(2017)",
+          "nav.game.item2": "AirBoost: Sky Pilot",
+          "nav.game.item3": "Popular Games",
+          "nav.game.item4": "Download",
+          "nav.planning.title": "Planning & Promotion ▼",
+          "nav.planning.item1": "IndieGameWebTW",
+          "nav.planning.item2": "East Asia Game Sale 2025",
+          "nav.planning.item3": "Taiwan Game Dream - Team Intro",
+          "nav.contact.title": "Contact ▼",
+          "nav.contact.item1": "Contact Us",
+          "nav.contact.item2": "FAQ",
+          "nav.contact.item3": "Support",
+          "lang.en": "English",
+          "lang.zh": "中文",
+          "lang.ja": "日本語",
+          "hero.title": "Adventure",
+          "section.popularGames.title": "Popular Games",
+          "section.latestImages.title": "Latest Images",
+          "section.animeInfo.title": "Monster Girl Anime Info",
+          "section.animeInfo.item1": "Episode 1",
+          "section.animeInfo.item2": "Episode 2",
+          "section.animeInfo.item3": "Episode 3",
+          "section.characters.title": "Characters",
+          "section.characters.button": "View All Characters",
+          "section.highScore.title": "High Score Games",
+          "section.highScore.item1": "Game 1",
+          "section.highScore.item2": "Game 2",
+          "section.highScore.item3": "Game 3",
+          "section.highScore.item4": "Game 4",
+          "section.popularCharacters.title": "Popular Characters",
+          "section.popularCharacters.card1": "Monster Girl Series 1",
+          "section.popularCharacters.card2": "Monster Girl Series 2",
+          "section.popularCharacters.card3": "Monster Girl Series 3",
+          "section.contact.title": "Contact Us",
+          "section.contact.card.title": "Contact Us",
+          "section.contact.card.desc": "For game-related questions, please contact us",
+          "footer.copyright": "FilterGame © All Rights Reserved",
+          "footer.site": "FilterGame - Game Development",
+          "expand": "Expand"
+        },
+        zh: {
+          siteTitle: "FilterGame",
+          metaDescription: "FilterGame 遊戲開發.",
+          "nav.logo": "FilterGame ",
+          "nav.home.title": "首頁 ▼",
+          "nav.home.item1": "首頁",
+          "nav.home.item2": "遊戲資訊",
+          "nav.home.item3": "團隊介紹",
+          "nav.game.title": "遊戲 ▼",
+          "nav.game.item1": "AirBoost(2017)",
+          "nav.game.item2": "AirBoost:天空機士",
+          "nav.game.item3": "熱門遊戲",
+          "nav.game.item4": "下載",
+          "nav.planning.title": "企劃&宣傳 ▼",
+          "nav.planning.item1": "IndieGameWebTW",
+          "nav.planning.item2": "東亞遊戲特賣2025",
+          "nav.planning.item3": "台灣遊戲夢-團隊介紹",
+          "nav.contact.title": "聯絡我 ▼",
+          "nav.contact.item1": "聯絡我們",
+          "nav.contact.item2": "常見問題",
+          "nav.contact.item3": "支援",
+          "lang.en": "English",
+          "lang.zh": "中文",
+          "lang.ja": "日本語",
+          "hero.title": "冒險",
+          "section.popularGames.title": "熱門遊戲",
+          "section.latestImages.title": "最新圖片",
+          "section.animeInfo.title": "魔物少女動畫資訊",
+          "section.animeInfo.item1": "第1集",
+          "section.animeInfo.item2": "第2集",
+          "section.animeInfo.item3": "第3集",
+          "section.characters.title": "角色",
+          "section.characters.button": "查看所有角色",
+          "section.highScore.title": "高分遊戲",
+          "section.highScore.item1": "遊戲 1",
+          "section.highScore.item2": "遊戲 2",
+          "section.highScore.item3": "遊戲 3",
+          "section.highScore.item4": "遊戲 4",
+          "section.popularCharacters.title": "熱門角色",
+          "section.popularCharacters.card1": "魔物少女系列 1",
+          "section.popularCharacters.card2": "魔物少女系列 2",
+          "section.popularCharacters.card3": "魔物少女系列 3",
+          "section.contact.title": "聯絡我們",
+          "section.contact.card.title": "聯絡我們",
+          "section.contact.card.desc": "如有遊戲相關疑問，請聯絡我們",
+          "footer.copyright": "FilterGame © 版權所有",
+          "footer.site": "FilterGame - 遊戲開發",
+          "expand": "展開"
+        },
+        ja: {
+          siteTitle: "FilterGame",
+          metaDescription: "FilterGame ゲーム開発.",
+          "nav.logo": "FilterGame ",
+          "nav.home.title": "ホーム ▼",
+          "nav.home.item1": "ホーム",
+          "nav.home.item2": "ゲーム情報",
+          "nav.home.item3": "チーム紹介",
+          "nav.game.title": "ゲーム ▼",
+          "nav.game.item1": "AirBoost(2017)",
+          "nav.game.item2": "AirBoost：スカイパイロット",
+          "nav.game.item3": "人気ゲーム",
+          "nav.game.item4": "ダウンロード",
+          "nav.planning.title": "企画＆宣伝 ▼",
+          "nav.planning.item1": "IndieGameWebTW",
+          "nav.planning.item2": "東アジアゲームセール2025",
+          "nav.planning.item3": "台湾ゲーム夢・チーム紹介",
+          "nav.contact.title": "お問い合わせ ▼",
+          "nav.contact.item1": "お問い合わせ",
+          "nav.contact.item2": "よくある質問",
+          "nav.contact.item3": "サポート",
+          "lang.en": "English",
+          "lang.zh": "中文",
+          "lang.ja": "日本語",
+          "hero.title": "冒険",
+          "section.popularGames.title": "人気ゲーム",
+          "section.latestImages.title": "最新画像",
+          "section.animeInfo.title": "モンスター娘アニメ情報",
+          "section.animeInfo.item1": "第1話",
+          "section.animeInfo.item2": "第2話",
+          "section.animeInfo.item3": "第3話",
+          "section.characters.title": "キャラクター",
+          "section.characters.button": "全キャラクターを見る",
+          "section.highScore.title": "高得点ゲーム",
+          "section.highScore.item1": "ゲーム 1",
+          "section.highScore.item2": "ゲーム 2",
+          "section.highScore.item3": "ゲーム 3",
+          "section.highScore.item4": "ゲーム 4",
+          "section.popularCharacters.title": "人気キャラクター",
+          "section.popularCharacters.card1": "モンスター娘シリーズ 1",
+          "section.popularCharacters.card2": "モンスター娘シリーズ 2",
+          "section.popularCharacters.card3": "モンスター娘シリーズ 3",
+          "section.contact.title": "お問い合わせ",
+          "section.contact.card.title": "お問い合わせ",
+          "section.contact.card.desc": "ゲームに関するご質問がある場合は、お問い合わせください",
+          "footer.copyright": "FilterGame © 全著作権所有",
+          "footer.site": "FilterGame - ゲーム開発",
+          "expand": "展開"
+        }
+      };
+
+      // 更新頁面語系文字
+      function updateLanguage(lang) {
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+          const key = el.getAttribute("data-i18n");
+          if(key) {
+            if(key.indexOf("[content]") === 0) {
+              const realKey = key.replace("[content]", "");
+              el.setAttribute("content", translations[lang][realKey] || "");
+            } else {
+              el.innerText = translations[lang][key] || "";
+            }
+          }
+        });
+        document.documentElement.lang = lang;
+      }
+
+      function detectLanguage() {
+        const navLang = navigator.language || navigator.userLanguage;
+        if (navLang.startsWith("zh")) return "zh";
+        if (navLang.startsWith("ja")) return "ja";
+        return "en";
+      }
+
+      // 初始化語系
+      const defaultLang = detectLanguage();
+      document.getElementById("langSelect").value = defaultLang;
+      updateLanguage(defaultLang);
+
+      document.getElementById("langSelect").addEventListener("change", function() {
+        updateLanguage(this.value);
+      });
+
+      // 圖片 Modal 功能
+      const imgModal = document.getElementById("imgModal");
+      const modalImg = document.getElementById("modalImg");
+      const closeImgModal = document.getElementById("closeImgModal");
+
+      // 點擊圖片顯示 Modal
+      function openImageModal(src, alt) {
+        modalImg.src = src;
+        modalImg.alt = alt;
+        imgModal.classList.add("active");
+      }
+
+      // 當點擊 Modal 背景也關閉 Modal
+      imgModal.addEventListener("click", function(e) {
+        if(e.target === imgModal || e.target === closeImgModal) {
+          imgModal.classList.remove("active");
+        }
+      });
+
+      // 綁定頁面中所有帶有 .zoom-image 類別的圖片點擊事件
+      document.querySelectorAll("img.zoom-image").forEach(img => {
+        img.addEventListener("click", function() {
+          openImageModal(this.src, this.alt);
+        });
+      });
+
+      // 範例按鈕點擊事件，使用一張範例圖片
+      document.getElementById("sampleModalBtn").addEventListener("click", function() {
+        openImageModal("WebAsset/Google_AirBoost.jfif", "Sample Image");
+      });
+
+      // News 區塊：切換展開／收起完整內容
+      function updateNewsToggleButtons() {
+        document.querySelectorAll(".news-toggle-btn").forEach(btn => {
+          const fullContent = btn.closest("div.bg-white").querySelector(".news-full-content");
+          if (fullContent && !fullContent.classList.contains("hidden")) {
+            btn.innerHTML = `<span>${translations[currentLanguage].collapse}</span>`;
+          } else {
+            btn.innerHTML = `<span>${translations[currentLanguage].expand}</span>`;
+          }
+        });
+      }
+      document.querySelectorAll(".news-toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const fullContent = btn.closest("div.bg-white").querySelector(".news-full-content");
+          if (fullContent) {
+            fullContent.classList.toggle("hidden");
+            updateNewsToggleButtons();
+          }
+        });
+      });
+    </script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </body>
+</html>
