@@ -309,29 +309,28 @@
 
         <nav class="nav-items">
           <div class="dropdown">
-            <button data-i18n="nav.home.title"> HOME ▼</button>
+            <button data-i18n="nav.home.title"> 首頁 ▼</button>
             <div class="dropdown-content">
-              <a href="/" data-i18n="nav.home.item1">トップページ</a>
-              <a href="/updates" data-i18n="nav.home.item3">更新情報</a>
+              <a href="/" data-i18n="nav.home.item1">首頁</a>
+              <a href="/updates" data-i18n="nav.home.item3">團隊介紹</a>
             </div>
           </div>
           <div class="dropdown">
-            <button data-i18n="nav.game.title">Game ▼</button>
+            <button data-i18n="nav.game.title">遊戲 ▼</button>
             <div class="dropdown-content">
-              <a href="/games" data-i18n="nav.game.item1">ゲーム一覧</a>
-              <a href="/new-games" data-i18n="nav.game.item2">新作ゲーム</a>
-              <a href="/popular-games" data-i18n="nav.game.item3">人気ゲーム</a>
-              <a href="/downloads" data-i18n="nav.game.item4">ダウンロード</a>
+              <a href="/games" data-i18n="nav.game.item1">AirBoost(2017)</a>
+              <a href="/new-games" data-i18n="nav.game.item2">AirBoost:天空機士</a>
             </div>
           </div>
           <div class="dropdown">
-            <button data-i18n="nav.planning.title">企劃 ▼</button>
+            <button data-i18n="nav.planning.title">企劃&宣傳 ▼</button>
             <div class="dropdown-content">
-              <a href="/planning" data-i18n="nav.planning.item1">企画概要</a>
-              <a href="/dev-blog" data-i18n="nav.planning.item2">開発ブログ</a>
-              <a href="/roadmap" data-i18n="nav.planning.item3">今後の予定</a>
+              <a href="/planning" data-i18n="nav.planning.item1">IndieGameWebTW</a>
+              <a href="/dev-blog" data-i18n="nav.planning.item2">東亞遊戲特賣2025</a>
+              <a href="/roadmap" data-i18n="nav.planning.item3">台灣遊戲夢-團隊列表</a>
             </div>
           </div>
+		  <!--
           <div class="dropdown">
             <button data-i18n="nav.contact.title">聯絡我 ▼</button>
             <div class="dropdown-content">
@@ -340,6 +339,7 @@
               <a href="/support" data-i18n="nav.contact.item3">サポート</a>
             </div>
           </div>
+		  -->
         </nav>
         <!-- 語系選單 -->
         <div class="lang-selector">
@@ -409,13 +409,13 @@
 						<a href="https://play.google.com/store/apps/details?id=com.konadev.ls2" target="_blank">
 							<img src="WebAsset/Google_AirBoost.jfif" alt="AirBoost" class="object-cover absolute inset-0 w-full h-full zoom-image">
 						</a>
-							<div class="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded font-bold">free play!</div>
+							<div class="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded font-bold" data-i18n="section.popularGames.freeplay">free play!</div>
 					</div>
 					<div class="p-4">
 						<h3 class="font-bold mb-1 " >AirBoost</h3>
 							<div class="flex items-center justify-between mb-2">
 								<div class="flex items-center gap-2">
-									<span class="text-gray-500">GooglePlay商店 - 免費下載</span>  
+									<span class="text-gray-500" data-i18n="section.popularGames.ingoogleplay">GooglePlay商店 - 免費下載</span>  
 					<!--			<span class="text-orange-500 font-bold">2025發售預定</span>-->
 							</div>
 						</div>
@@ -430,13 +430,13 @@
 						<a href="https://store.steampowered.com/app/2325390" target="_blank">
 							<img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2325390/header.jpg" alt="AirBoost" class="object-cover absolute inset-0 w-full h-full zoom-image">
 						</a>
-							<div class="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded font-bold">DEMO開放中!</div>
+							<div class="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded font-bold" data-i18n="section.popularGames.demo">DEMO開放中!</div>
 					</div>
 					<div class="p-4">
 						<h3 class="font-bold mb-1 " data-i18n="steam_airboost_title">AirBoost:天空機士</h3>
 							<div class="flex items-center justify-between mb-2">
 								<div class="flex items-center gap-2">
-									<span class="text-gray-500">Steam-2025發售預定</span>  
+									<span class="text-gray-500" data-i18n="section.popularGames.steamrelease">Steam-2025發售預定</span>  
 					<!--			<span class="text-orange-500 font-bold">2025發售預定</span>-->
 							</div>
 						</div>
@@ -494,7 +494,7 @@
 
       <!-- 圖片創作 -->
       <section>
-        <h2 class="pink" data-i18n="section.characters.title">圖片創作</h2>
+        <h2 class="pink" data-i18n="section.pic.title">圖片創作</h2>
         <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6 " id="pic-list">
 				  
         </div>
@@ -600,64 +600,7 @@
     </div>
 
     <script>
-      // 語系翻譯字典
 	const translations = {
-	  en: {
-		siteTitle: "FilterGame",
-		metaDescription: "FilterGame Game Development.",
-		"nav.logo": "FilterGame ",
-		"nav.home.title": "Home ▼",
-		"nav.home.item1": "Home",
-		"nav.home.item2": "Game Info",
-		"nav.home.item3": "Team Introduction",
-		"nav.game.title": "Game ▼",
-		"nav.game.item1": "AirBoost(2017)",
-		"nav.game.item2": "AirBoost: Sky Pilot",
-		"nav.game.item3": "Popular Games",
-		"nav.game.item4": "Download",
-		"nav.planning.title": "Planning & Promotion ▼",
-		"nav.planning.item1": "IndieGameWebTW",
-		"nav.planning.item2": "East Asia Game Sale 2025",
-		"nav.planning.item3": "Taiwan Game Dream - Team Intro",
-		"nav.contact.title": "Contact ▼",
-		"nav.contact.item1": "Contact Us",
-		"nav.contact.item2": "FAQ",
-		"nav.contact.item3": "Support",
-		"lang.en": "English",
-		"lang.zh": "中文",
-		"lang.ja": "日本語",
-		"hero.title": "Adventure",
-		"section.popularGames.title": "Popular Games",
-		"section.latestImages.title": "Latest Images",
-		"section.animeInfo.title": "Monster Girl Anime Info",
-		"section.animeInfo.item1": "Episode 1",
-		"section.animeInfo.item2": "Episode 2",
-		"section.animeInfo.item3": "Episode 3",
-		"section.characters.title": "Characters",
-		"section.characters.button": "View All Characters",
-		"section.highScore.title": "High Score Games",
-		"section.highScore.item1": "Game 1",
-		"section.highScore.item2": "Game 2",
-		"section.highScore.item3": "Game 3",
-		"section.highScore.item4": "Game 4",
-		"section.popularCharacters.title": "Popular Characters",
-		"section.popularCharacters.card1": "Monster Girl Series 1",
-		"section.popularCharacters.card2": "Monster Girl Series 2",
-		"section.popularCharacters.card3": "Monster Girl Series 3",
-		"section.contact.title": "Contact Us",
-		"section.contact.card.title": "Contact Us",
-		"section.contact.card.desc": "For game-related questions, please contact us",
-		"footer.copyright": "FilterGame © All Rights Reserved",
-		"footer.site": "FilterGame - Game Development",
-		"footer.site": "FilterGame - 遊戲開發",
-		"expand" : "展開",
-		"news_item" : "=====",
-		"news_full_item_1" : "=====",
-		"news_item2" : "=====",
-		"news_full_item_2" : "=====",
-		"steam_airboost_title" : "AirBoost:天空機士",
-		"News" : "最新消息",
-	  },
 	  zh: {
 		siteTitle: "FilterGame",
 		metaDescription: "FilterGame 遊戲開發.",
@@ -683,36 +626,77 @@
 		"lang.zh": "中文",
 		"lang.ja": "日本語",
 		"hero.title": "冒險",
-		"section.popularGames.title": "熱門遊戲",
+		"section.popularGames.title": "開發遊戲列表",
+		"section.popularGames.ingoogleplay": "GooglePlay商店 - 免費下載",
+		"section.popularGames.demo": "DEMO開放中!",
+		"section.popularGames.freeplay": "免費遊玩!",
+		"section.popularGames.steamrelease": "Steam-2025發售預定",
 		"section.latestImages.title": "最新圖片",
-		"section.animeInfo.title": "魔物少女動畫資訊",
-		"section.animeInfo.item1": "第1集",
-		"section.animeInfo.item2": "第2集",
-		"section.animeInfo.item3": "第3集",
 		"section.characters.title": "角色",
 		"section.characters.button": "查看所有角色",
-		"section.highScore.title": "高分遊戲",
-		"section.highScore.item1": "遊戲 1",
-		"section.highScore.item2": "遊戲 2",
-		"section.highScore.item3": "遊戲 3",
-		"section.highScore.item4": "遊戲 4",
-		"section.popularCharacters.title": "熱門角色",
-		"section.popularCharacters.card1": "魔物少女系列 1",
-		"section.popularCharacters.card2": "魔物少女系列 2",
-		"section.popularCharacters.card3": "魔物少女系列 3",
+		"section.pic.title": "圖片創作",
 		"section.contact.title": "聯絡我們",
 		"section.contact.card.title": "聯絡我們",
 		"section.contact.card.desc": "如有遊戲相關疑問，請聯絡我們",
 		"footer.copyright": "FilterGame © 版權所有",
 		"footer.site": "FilterGame - 遊戲開發",
-		"expand" : "展開",
-		"news_item" : "=====",
-		"news_full_item_1" : "=====",
-		"news_item2" : "=====",
-		"news_full_item_2" : "=====",
-		"steam_airboost_title" : "AirBoost:天空機士",
-		"News" : "最新消息",
+		"expand": "展開",
+		"news_item": "=====",
+		"news_full_item_1": "=====",
+		"news_item2": "=====",
+		"news_full_item_2": "=====",
+		"steam_airboost_title": "AirBoost:天空機士",
+		"News": "最新消息"
 	  },
+
+	  en: {
+		siteTitle: "FilterGame",
+		metaDescription: "FilterGame Game Development.",
+		"nav.logo": "FilterGame ",
+		"nav.home.title": "Home ▼",
+		"nav.home.item1": "Home",
+		"nav.home.item2": "Game Info",
+		"nav.home.item3": "Team Introduction",
+		"nav.game.title": "Games ▼",
+		"nav.game.item1": "AirBoost(2017)",
+		"nav.game.item2": "AirBoost: Sky Knight",
+		"nav.game.item3": "Popular Games",
+		"nav.game.item4": "Download",
+		"nav.planning.title": "Planning & Promotion ▼",
+		"nav.planning.item1": "IndieGameWebTW",
+		"nav.planning.item2": "East Asia Game Sale 2025",
+		"nav.planning.item3": "Taiwan Game Dream - Team Intro",
+		"nav.contact.title": "Contact ▼",
+		"nav.contact.item1": "Contact Us",
+		"nav.contact.item2": "FAQ",
+		"nav.contact.item3": "Support",
+		"lang.en": "English",
+		"lang.zh": "Chinese",
+		"lang.ja": "Japanese",
+		"hero.title": "Adventure",
+		"section.popularGames.title": "Developed Game List",
+		"section.popularGames.ingoogleplay": "Google Play Store - Free Download",
+		"section.popularGames.demo": "DEMO Available!",
+		"section.popularGames.freeplay": "Free to Play!",
+		"section.popularGames.steamrelease": "Steam - Releasing in 2025",
+		"section.latestImages.title": "Latest Images",
+		"section.characters.title": "Characters",
+		"section.characters.button": "View All Characters",
+		"section.pic.title": "Image Creations",
+		"section.contact.title": "Contact Us",
+		"section.contact.card.title": "Contact Us",
+		"section.contact.card.desc": "For game-related questions, please contact us.",
+		"footer.copyright": "FilterGame © All Rights Reserved",
+		"footer.site": "FilterGame - Game Development",
+		"expand": "Expand",
+		"news_item": "=====",
+		"news_full_item_1": "=====",
+		"news_item2": "=====",
+		"news_full_item_2": "=====",
+		"steam_airboost_title": "AirBoost: Sky Knight",
+		"News": "News"
+	  },
+
 	  ja: {
 		siteTitle: "FilterGame",
 		metaDescription: "FilterGame ゲーム開発.",
@@ -723,7 +707,7 @@
 		"nav.home.item3": "チーム紹介",
 		"nav.game.title": "ゲーム ▼",
 		"nav.game.item1": "AirBoost(2017)",
-		"nav.game.item2": "AirBoost：スカイパイロット",
+		"nav.game.item2": "AirBoost：スカイナイト",
 		"nav.game.item3": "人気ゲーム",
 		"nav.game.item4": "ダウンロード",
 		"nav.planning.title": "企画＆宣伝 ▼",
@@ -734,43 +718,33 @@
 		"nav.contact.item1": "お問い合わせ",
 		"nav.contact.item2": "よくある質問",
 		"nav.contact.item3": "サポート",
-		"lang.en": "English",
-		"lang.zh": "中文",
+		"lang.en": "英語",
+		"lang.zh": "中国語",
 		"lang.ja": "日本語",
 		"hero.title": "冒険",
-		"section.popularGames.title": "人気ゲーム",
+		"section.popularGames.title": "開発ゲームリスト",
+		"section.popularGames.ingoogleplay": "Google Playストア - 無料ダウンロード",
+		"section.popularGames.demo": "DEMO公開中！",
+		"section.popularGames.freeplay": "無料プレイ！",
+		"section.popularGames.steamrelease": "Steam - 2025年発売予定",
 		"section.latestImages.title": "最新画像",
-		"section.animeInfo.title": "モンスター娘アニメ情報",
-		"section.animeInfo.item1": "第1話",
-		"section.animeInfo.item2": "第2話",
-		"section.animeInfo.item3": "第3話",
 		"section.characters.title": "キャラクター",
-		"section.characters.button": "全キャラクターを見る",
-		"section.highScore.title": "高得点ゲーム",
-		"section.highScore.item1": "ゲーム 1",
-		"section.highScore.item2": "ゲーム 2",
-		"section.highScore.item3": "ゲーム 3",
-		"section.highScore.item4": "ゲーム 4",
-		"section.popularCharacters.title": "人気キャラクター",
-		"section.popularCharacters.card1": "モンスター娘シリーズ 1",
-		"section.popularCharacters.card2": "モンスター娘シリーズ 2",
-		"section.popularCharacters.card3": "モンスター娘シリーズ 3",
+		"section.characters.button": "すべてのキャラを見る",
+		"section.pic.title": "画像作品",
 		"section.contact.title": "お問い合わせ",
 		"section.contact.card.title": "お問い合わせ",
-		"section.contact.card.desc": "ゲームに関するご質問がある場合は、お問い合わせください",
+		"section.contact.card.desc": "ゲームに関するご質問はお気軽にご連絡ください。",
 		"footer.copyright": "FilterGame © 全著作権所有",
 		"footer.site": "FilterGame - ゲーム開発",
-		"footer.site": "FilterGame - 遊戲開發",
-		"expand" : "展開",
-		"news_item" : "=====",
-		"news_full_item_1" : "=====",
-		"news_item2" : "=====",
-		"news_full_item_2" : "=====",
-		"steam_airboost_title" : "AirBoost:天空機士",
-		"News" : "最新消息",
+		"expand": "展開",
+		"news_item": "=====",
+		"news_full_item_1": "=====",
+		"news_item2": "=====",
+		"news_full_item_2": "=====",
+		"steam_airboost_title": "AirBoost：スカイナイト",
+		"News": "最新情報"
 	  }
 	};
-
       // 依據 data-i18n 屬性更新頁面文字
       function updateLanguage(lang) {
         document.querySelectorAll("[data-i18n]").forEach(el => {
