@@ -812,7 +812,7 @@
       });
 
 	  //讀CSV顯示圖片卡
-		fetch('Artis_Pic.csv')
+		fetch('/WebAsset/Artis_Pic/Artis_Pic.csv')
 		.then(response => response.text())
 		.then(csvText => {
 		  const rows = csvText.trim().split('\n');
