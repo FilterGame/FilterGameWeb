@@ -72,6 +72,15 @@
 		  --input: 0 0% 14.9%;
 		  --ring: 24 100% 50%;
 		}
+		  #modalImg {
+			max-width: 60vw;
+			max-height: 60vh;
+			width: auto;
+			height: auto;
+			display: block;
+			margin: 0 auto;
+			object-fit: contain;
+		  }
 
 		.media-row {
 		  display: flex;
@@ -829,8 +838,8 @@
 			img.alt = item.description;
 			img.className = 'click-image';
 			img.style.cursor = 'pointer';
-			img.style.width = '400px';
-			img.style.height = '400px';
+			img.style.width = '200px';
+			img.style.height = '200px';
 			img.style.objectFit = 'cover'; // 可選：讓圖片不變形地填滿
 
 			// 選擇性加上編號
