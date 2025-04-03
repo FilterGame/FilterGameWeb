@@ -487,12 +487,7 @@
       <section>
         <h2 class="pink" data-i18n="section.characters.title">圖片創作</h2>
         <div class="flex" id="pic-list">
-		
-          <div class="card" style="flex: 1 0 14%;">
-            <a href="#"><img src="/placeholder.svg?height=80&width=80&text=Char1" alt="Character 1" /></a>
-          </div>
-		  
-		  
+				  
         </div>
        
       </section>
@@ -834,6 +829,9 @@
 			img.alt = item.description;
 			img.className = 'click-image';
 			img.style.cursor = 'pointer';
+			img.style.width = '400px';
+			img.style.height = '400px';
+			img.style.objectFit = 'cover'; // 可選：讓圖片不變形地填滿
 
 			// 選擇性加上編號
 			if (index === 0) {
