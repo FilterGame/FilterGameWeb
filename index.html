@@ -9,7 +9,49 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-			.dark {
+
+      /* 圖片 Modal 樣式 */
+      .img-modal {
+        display: none;
+        position: fixed;
+        z-index: 200;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        justify-content: center;
+        align-items: center;
+      }
+      .img-modal.active {
+        display: flex;
+      }
+      .img-modal img {
+        max-width: 90%;
+        max-height: 90%;
+      }
+      .img-modal .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 2rem;
+        color: #fff;
+        cursor: pointer;
+      }
+	
+		.img-container {
+		  display: flex;
+		  flex-direction: column;
+		  align-items: center;
+		}
+
+		.img-caption {
+		  color: white;
+		  margin-top: 10px;
+		  text-align: center;
+		}
+
+		.dark {
 		  --background: 0 0% 3.9%;
 		  --foreground: 0 0% 98%;
 		  --card: 0 0% 3.9%;
@@ -441,34 +483,19 @@
       </section>
 
 
-      <!-- 角色展示 
+      <!-- 圖片創作 -->
       <section>
-        <h2 class="pink" data-i18n="section.characters.title">キャラクター</h2>
-        <div class="flex">
+        <h2 class="pink" data-i18n="section.characters.title">圖片創作</h2>
+        <div class="flex" id="pic-list">
+		
           <div class="card" style="flex: 1 0 14%;">
             <a href="#"><img src="/placeholder.svg?height=80&width=80&text=Char1" alt="Character 1" /></a>
           </div>
-          <div class="card" style="flex: 1 0 14%;">
-            <a href="#"><img src="/placeholder.svg?height=80&width=80&text=Char2" alt="Character 2" /></a>
-          </div>
-          <div class="card" style="flex: 1 0 14%;">
-            <a href="#"><img src="/placeholder.svg?height=80&width=80&text=Char3" alt="Character 3" /></a>
-          </div>
-          <div class="card" style="flex: 1 0 14%;">
-            <a href="#"><img src="/placeholder.svg?height=80&width=80&text=Char4" alt="Character 4" /></a>
-          </div>
-          <div class="card" style="flex: 1 0 14%;">
-            <a href="#"><img src="/placeholder.svg?height=80&width=80&text=Char5" alt="Character 5" /></a>
-          </div>
-          <div class="card" style="flex: 1 0 14%;">
-            <a href="#"><img src="/placeholder.svg?height=80&width=80&text=Char6" alt="Character 6" /></a>
-          </div>
+		  
+		  
         </div>
-        <div style="text-align: right; margin-top: 10px;">
-          <a href="#" class="button" style="border: 1px solid #800080; color: #800080;" data-i18n="section.characters.button">全キャラクターを見る</a>
-        </div>
+       
       </section>
-	  -->
 
       <!-- 高得點遊戲 
       <section>
@@ -554,6 +581,18 @@
       <section style="text-align: center; font-size: 0.9em; color: #666; margin-bottom: 20px;">
         <p data-i18n="footer.copyright">FilterGame © All Rights Reserved.</p>
       </section>
+    </div>
+
+    <!-- 圖片 Modal -->
+	<div id="imgModal" class="img-modal">
+	  <span class="close-btn" id="closeImgModal">&times;</span>
+
+	  <div class="img-container">
+		<img id="modalImg" src="WebAsset/Google_AirBoost.jfif" alt="Modal Image" />
+		<p class="img-caption">這是一段白色的描述文字</p>
+	  </div>
+	</div>
+
     </div>
 
     <script>
@@ -745,6 +784,90 @@
         // 更新 <html> 的 lang 屬性
         document.documentElement.lang = lang;
       }
+
+      // 圖片 Modal 功能
+      const imgModal = document.getElementById("imgModal");
+      const modalImg = document.getElementById("modalImg");
+      const closeImgModal = document.getElementById("closeImgModal");
+
+      // 點擊圖片顯示 Modal
+      function openImageModal(src, alt) {
+        modalImg.src = src;
+        modalImg.alt = alt;
+        imgModal.classList.add("active");
+      }
+
+      // 當點擊 Modal 背景也關閉 Modal
+      imgModal.addEventListener("click", function(e) {
+        if(e.target === imgModal || e.target === closeImgModal) {
+          imgModal.classList.remove("active");
+        }
+      });
+
+      // 綁定頁面中所有帶有 .zoom-image 類別的圖片點擊事件
+      document.querySelectorAll("img.zoom-image").forEach(img => {
+        img.addEventListener("click", function() {
+          openImageModal(this.src, this.alt);
+        });
+      });
+
+	  //讀CSV顯示圖片卡
+		fetch('Artis_Pic.csv')
+		.then(response => response.text())
+		.then(csvText => {
+		  const rows = csvText.trim().split('\n');
+		  const data = rows.slice(1).map(row => {
+			const [image, description] = row.split(',');
+			return { image: image.trim(), description: description.trim() };
+		  });
+
+		  const container = document.getElementById('pic-list');
+
+		  data.forEach((item, index) => {
+			const card = document.createElement('div');
+			card.className = 'card';
+			card.style.flex = '1 0 21%';
+			card.style.position = 'relative';
+
+			const img = document.createElement('img');
+			img.src = item.image;
+			img.alt = item.description;
+			img.className = 'zoom-image';
+			img.style.cursor = 'pointer';
+
+			// 選擇性加上編號
+			if (index === 0) {
+			  const badge = document.createElement('div');
+			  badge.style.cssText = `
+				position: absolute;
+				top: -10px;
+				left: -10px;
+				background: #ffd700;
+				color: #fff;
+				border-radius: 50%;
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				font-weight: bold;
+				font-size: 0.9em;
+				text-align: center;
+			  `;
+			  badge.textContent = '1';
+			  card.appendChild(badge);
+			}
+
+			card.appendChild(img);
+			container.appendChild(card);
+		  });
+
+		  // 綁定所有圖片點擊事件
+		  document.querySelectorAll("img.zoom-image").forEach(img => {
+			img.addEventListener("click", function() {
+			  openImageModal(this.src, this.alt);
+			});
+		  });
+		});
+
 
       // 根據瀏覽器預設語系判斷
       function detectLanguage() {
