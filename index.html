@@ -761,38 +761,53 @@
 		const container = document.querySelector('#news-section .container .space-y-4');
 		container.innerHTML = ''; // 清空舊的靜態內容
 		
-      data.forEach((item, index) => {
-        const dateKey = item.date.replace(/\./g, ''); // ex: 20250326
-        const keyTitle = `news.${dateKey}.title`;
-        const keyContent = `news.${dateKey}.content`;
+		  data.forEach((item, index) => {
+			const dateKey = item.date.replace(/\./g, ''); // ex: 20250326
+			const keyTitle = `news.${dateKey}.title`;
+			const keyContent = `news.${dateKey}.content`;
 
-        // ⬇ 將翻譯注入 translations 物件
-        translations.zh[keyTitle] = item.title_zh;
-        translations.en[keyTitle] = item.title_en;
-        translations.ja[keyTitle] = item.title_ja;
-        translations.zh[keyContent] = item.content_zh;
-        translations.en[keyContent] = item.content_en;
-        translations.ja[keyContent] = item.content_ja;
+			// ⬇ 將翻譯注入 translations 物件
+			translations.zh[keyTitle] = item.title_zh;
+			translations.en[keyTitle] = item.title_en;
+			translations.ja[keyTitle] = item.title_ja;
+			translations.zh[keyContent] = item.content_zh;
+			translations.en[keyContent] = item.content_en;
+			translations.ja[keyContent] = item.content_ja;
 
-        // ⬇ 動態建立 HTML 結構
-        const block = document.createElement('div');
-        block.className = "bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-4";
-        block.innerHTML = `
-          <div class="flex items-center gap-4">
-            <div class="text-sm text-gray-500 whitespace-nowrap">${item.date}</div>
-            <div class="flex-1">
-              <h3 class="font-medium hover:text-orange-500" data-i18n="${keyTitle}">${item[`title_${detectLanguage()}`]}</h3>
-            </div>
-            <button class="news-toggle-btn text-orange-500 bg-transparent">
-              <span data-i18n="expand">展開</span>
-            </button>
-          </div>
-          <div class="news-full-content hidden text-gray-700 mt-4" data-i18n="${keyContent}">
-            ${item[`content_${detectLanguage()}`]}
-          </div>
-        `;
-        container.appendChild(block);
-      });
+			// ⬇ 動態建立 HTML 結構
+			const block = document.createElement('div');
+			block.className = "bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-4";
+			block.innerHTML = `
+			  <div class="flex items-center gap-4">
+				<div class="text-sm text-gray-500 whitespace-nowrap">${item.date}</div>
+				<div class="flex-1">
+				  <h3 class="font-medium hover:text-orange-500" data-i18n="${keyTitle}">${item[`title_${detectLanguage()}`]}</h3>
+				</div>
+				<button class="news-toggle-btn text-orange-500 bg-transparent">
+				  <span data-i18n="expand">展開</span>
+				</button>
+			  </div>
+			  <div class="news-full-content hidden text-gray-700 mt-4" data-i18n="${keyContent}">
+				${item[`content_${detectLanguage()}`]}
+			  </div>
+			`;
+			container.appendChild(block);
+			
+			      // 🔘 綁定展開／收合按鈕事件
+			  const toggleBtn = block.querySelector('.news-toggle-btn');
+			  const fullContent = block.querySelector('.news-full-content');
+			  toggleBtn.addEventListener('click', () => {
+				fullContent.classList.toggle('hidden');
+				const lang = document.documentElement.lang || currentLang;
+				toggleBtn.querySelector('span').innerText =
+				  fullContent.classList.contains('hidden')
+					? translations[lang].expand
+					: (translations[lang].collapse || '收起');
+			  });
+
+			
+		  });
+	  
 		});
 
       // 綁定展開/收合功能
