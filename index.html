@@ -715,6 +715,14 @@
         // 更新 <html> 的 lang 屬性
         document.documentElement.lang = lang;
       }
+	  
+      // 根據瀏覽器預設語系判斷
+      function detectLanguage() {
+        const navLang = navigator.language || navigator.userLanguage;
+        if (navLang.startsWith("zh")) return "zh";
+        if (navLang.startsWith("ja")) return "ja";
+        return "en";
+      }
 
       // 圖片 Modal 功能
       const imgModal = document.getElementById("imgModal");
@@ -773,14 +781,14 @@
           <div class="flex items-center gap-4">
             <div class="text-sm text-gray-500 whitespace-nowrap">${item.date}</div>
             <div class="flex-1">
-              <h3 class="font-medium hover:text-orange-500" data-i18n="${keyTitle}">${item[`title_${currentLanguage}`]}</h3>
+              <h3 class="font-medium hover:text-orange-500" data-i18n="${keyTitle}">${item[`title_${detectLanguage()}`]}</h3>
             </div>
             <button class="news-toggle-btn text-orange-500 bg-transparent">
               <span data-i18n="expand">展開</span>
             </button>
           </div>
           <div class="news-full-content hidden text-gray-700 mt-4" data-i18n="${keyContent}">
-            ${item[`content_${currentLanguage}`]}
+            ${item[`content_${detectLanguage()}`]}
           </div>
         `;
         container.appendChild(block);
@@ -833,15 +841,6 @@
 			});
 		  });
 		});
-
-
-      // 根據瀏覽器預設語系判斷
-      function detectLanguage() {
-        const navLang = navigator.language || navigator.userLanguage;
-        if (navLang.startsWith("zh")) return "zh";
-        if (navLang.startsWith("ja")) return "ja";
-        return "en";
-      }
 
 		// News 區塊：切換展開／收起完整內容（讓內容容器自適應高度）
 		function updateNewsToggleButtons() {
