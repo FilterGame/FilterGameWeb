@@ -501,57 +501,6 @@
        
       </section>
 
-      <!-- 高得點遊戲 
-      <section>
-        <h2 class="yellow" data-i18n="section.highScore.title">高得点</h2>
-        <div class="flex">
-          <div class="card" style="flex: 1 0 21%;">
-            <a href="#"><img src="/placeholder.svg?height=100&width=100&text=Game1" alt="Game 1" /></a>
-            <div style="position: absolute; top: -10px; left: -10px; background: #ffd700; color: #fff; border-radius: 50%; width: 40px; height: 40px; line-height: 40px; font-weight: bold; font-size: 0.9em;">1</div>
-            <p data-i18n="section.highScore.item1">ゲーム 1</p>
-          </div>
-          <div class="card" style="flex: 1 0 21%;">
-            <a href="#"><img src="/placeholder.svg?height=100&width=100&text=Game2" alt="Game 2" /></a>
-            <p data-i18n="section.highScore.item2">ゲーム 2</p>
-          </div>
-          <div class="card" style="flex: 1 0 21%;">
-            <a href="#"><img src="/placeholder.svg?height=100&width=100&text=Game3" alt="Game 3" /></a>
-            <p data-i18n="section.highScore.item3">ゲーム 3</p>
-          </div>
-          <div class="card" style="flex: 1 0 21%;">
-            <a href="#"><img src="/placeholder.svg?height=100&width=100&text=Game4" alt="Game 4" /></a>
-            <p data-i18n="section.highScore.item4">ゲーム 4</p>
-          </div>
-        </div>
-      </section>
-	  -->
-
-      <!-- 人氣角色 
-      <section>
-        <h2 class="pink" data-i18n="section.popularCharacters.title">人気キャラ</h2>
-        <div class="flex">
-          <div class="card" style="flex: 1 0 30%;">
-            <div style="background: linear-gradient(to right, #ff69b4, #800080); color: #fff; padding: 10px; text-align: center; font-weight: bold;" data-i18n="section.popularCharacters.card1">魔物少女シリーズ 1</div>
-            <div style="padding: 10px; text-align: center;">
-              <img src="/placeholder.svg?height=80&width=300&text=Popular+Characters+1" alt="Popular Characters 1" />
-            </div>
-          </div>
-          <div class="card" style="flex: 1 0 30%;">
-            <div style="background: linear-gradient(to right, #ff69b4, #800080); color: #fff; padding: 10px; text-align: center; font-weight: bold;" data-i18n="section.popularCharacters.card2">魔物少女シリーズ 2</div>
-            <div style="padding: 10px; text-align: center;">
-              <img src="/placeholder.svg?height=80&width=300&text=Popular+Characters+2" alt="Popular Characters 2" />
-            </div>
-          </div>
-          <div class="card" style="flex: 1 0 30%;">
-            <div style="background: linear-gradient(to right, #ff69b4, #800080); color: #fff; padding: 10px; text-align: center; font-weight: bold;" data-i18n="section.popularCharacters.card3">魔物少女シリーズ 3</div>
-            <div style="padding: 10px; text-align: center;">
-              <img src="/placeholder.svg?height=80&width=300&text=Popular+Characters+3" alt="Popular Characters 3" />
-            </div>
-          </div>
-        </div>
-      </section>
-	  -->
-
       <!-- 聯絡我們 -->
       <section>
         <h2 class="gray" data-i18n="section.contact.title">お問い合わせ</h2>
@@ -788,14 +737,83 @@
         }
       });
 
-      // 綁定頁面中所有帶有 .zoom-image 類別的圖片點擊事件
-      //document.querySelectorAll("img.zoom-image").forEach(img => {
-      //  img.addEventListener("click", function() {
-      //    openImageModal(this.src, this.alt);
-      //  });
-      //});
+		//刷新最新資訊
+		fetch('WebAsset/News/News.csv')
+		.then(res => res.text())
+		.then(csv => {
+		  const rows = csv.trim().split('\n');
+		  const headers = rows[0].split(',');
+		  const data = rows.slice(1).map(row => {
+			const cols = row.split(',');
+			const item = {};
+			headers.forEach((h, i) => item[h] = cols[i]);
+			return item;
+		  });
+		const container = document.querySelector('#news-section .container .space-y-4');
+		container.innerHTML = ''; // 清空舊的靜態內容
+		
+		data.forEach((item, index) => {
+        const dateKey = item.date.replace(/\./g, ''); // ex: 20250326
+        const keyTitle = `news.${dateKey}.title`;
+        const keyContent = `news.${dateKey}.content`;
 
-	  //讀CSV顯示圖片卡
+        // ⬇ 將翻譯注入 translations 物件
+        translations.zh[keyTitle] = item.title_zh;
+        translations.en[keyTitle] = item.title_en;
+        translations.ja[keyTitle] = item.title_ja;
+        translations.zh[keyContent] = item.content_zh;
+        translations.en[keyContent] = item.content_en;
+        translations.ja[keyContent] = item.content_ja;
+
+      data.forEach((item, index) => {
+        const dateKey = item.date.replace(/\./g, ''); // ex: 20250326
+        const keyTitle = `news.${dateKey}.title`;
+        const keyContent = `news.${dateKey}.content`;
+
+        // ⬇ 將翻譯注入 translations 物件
+        translations.zh[keyTitle] = item.title_zh;
+        translations.en[keyTitle] = item.title_en;
+        translations.ja[keyTitle] = item.title_ja;
+        translations.zh[keyContent] = item.content_zh;
+        translations.en[keyContent] = item.content_en;
+        translations.ja[keyContent] = item.content_ja;
+
+        // ⬇ 動態建立 HTML 結構
+        const block = document.createElement('div');
+        block.className = "bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-4";
+        block.innerHTML = `
+          <div class="flex items-center gap-4">
+            <div class="text-sm text-gray-500 whitespace-nowrap">${item.date}</div>
+            <div class="flex-1">
+              <h3 class="font-medium hover:text-orange-500" data-i18n="${keyTitle}">${item[`title_${currentLanguage}`]}</h3>
+            </div>
+            <button class="news-toggle-btn text-orange-500 bg-transparent">
+              <span data-i18n="expand">展開</span>
+            </button>
+          </div>
+          <div class="news-full-content hidden text-gray-700 mt-4" data-i18n="${keyContent}">
+            ${item[`content_${currentLanguage}`]}
+          </div>
+        `;
+        container.appendChild(block);
+      });
+
+      // 綁定展開/收合功能
+      document.querySelectorAll('.news-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const content = this.parentElement.nextElementSibling;
+          content.classList.toggle('hidden');
+          const span = this.querySelector('span');
+          //span.textContent = content.classList.contains('hidden') ? getI18n('expand') : getI18n('collapse');
+        });
+      });
+
+      // 重啟你的 i18n 系統替換文字（例如用 data-i18n）
+      //refreshI18nTexts();
+    });
+
+
+		//讀CSV顯示圖片卡
 		fetch('WebAsset/Artis_Pic/Artis_Pic.csv')
 		.then(response => response.text())
 		.then(csvText => {
@@ -809,11 +827,6 @@
 
 		  data.forEach((item, index) => {
 			const card = document.createElement('div');
-		//	card.className = 'card';
-		//	card.style.flex = '1 0 21%';
-		//	card.style.position = 'relative';
-
-		//	  const card = document.createElement('div');
 		  card.className = 'aspect-square border border-gray-200 rounded overflow-hidden shadow hover:shadow-md transition-shadow';
 		  card.style.flex = '1 0 21%';
 		  card.style.position = 'relative';
