@@ -752,19 +752,6 @@
 		const container = document.querySelector('#news-section .container .space-y-4');
 		container.innerHTML = ''; // 清空舊的靜態內容
 		
-		data.forEach((item, index) => {
-        const dateKey = item.date.replace(/\./g, ''); // ex: 20250326
-        const keyTitle = `news.${dateKey}.title`;
-        const keyContent = `news.${dateKey}.content`;
-
-        // ⬇ 將翻譯注入 translations 物件
-        translations.zh[keyTitle] = item.title_zh;
-        translations.en[keyTitle] = item.title_en;
-        translations.ja[keyTitle] = item.title_ja;
-        translations.zh[keyContent] = item.content_zh;
-        translations.en[keyContent] = item.content_en;
-        translations.ja[keyContent] = item.content_ja;
-
       data.forEach((item, index) => {
         const dateKey = item.date.replace(/\./g, ''); // ex: 20250326
         const keyTitle = `news.${dateKey}.title`;
