@@ -364,23 +364,6 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 /**********************
- * Modal (更新履歷&說明) 功能
- **********************/
-const modalOverlay = document.getElementById("modal-overlay");
-const updateModalBtn = document.getElementById("update-modal-btn");
-updateModalBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  modalOverlay.classList.add("active");
-});
-modalOverlay.addEventListener("click", function () {
-  modalOverlay.classList.add("closing");
-  setTimeout(() => {
-    modalOverlay.classList.remove("active");
-    modalOverlay.classList.remove("closing");
-  }, 500);
-});
-
-/**********************
  * 彈幕功能
  **********************/
 let danmakuList = [];
