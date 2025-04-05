@@ -132,7 +132,7 @@ main {
         top: 0;
         left: 0;
         right: 0;
-        background: rgba(16,185,129,0.1);
+        background: rgba(231,248,242,1);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         z-index: 100;
       }
