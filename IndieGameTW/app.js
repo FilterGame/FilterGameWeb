@@ -389,7 +389,7 @@ let danmakuIntervalId = null;
 let danmakuEnabled = true; // 新增變數來追蹤彈幕狀態
 
 function loadDanmakuCSV() {
-  fetch("danmaku.csv?v=" + Date.now())
+  fetch("danmaku.csv")
     .then((response) => response.text())
     .then((text) => {
       const lines = text.trim().split("\n");

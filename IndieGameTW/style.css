@@ -125,27 +125,6 @@ main {
   animation: danmaku-move 15s linear forwards;
 }
 
-      /* Reset & 基本樣式 */
-      *, *::before, *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        background: #fff;
-        color: #333;
-      }
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-      a {
-        text-decoration: none;
-        color: inherit;
-      }
 
 
       .fixed-top {
@@ -153,7 +132,7 @@ main {
         top: 0;
         left: 0;
         right: 0;
-        background: #fff;
+        background: rgba(16,185,129,0.1);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         z-index: 100;
       }
