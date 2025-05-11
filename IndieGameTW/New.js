@@ -197,6 +197,117 @@ if (navLang.startsWith("zh")) {
 
       });
 
+window.addEventListener("DOMContentLoaded", () => {
+  const firstCsvBtn = document.querySelector(".csv-btn");
+  if (firstCsvBtn) {
+    firstCsvBtn.style.backgroundColor = "red";
+    currentCSVButton = firstCsvBtn;
+    loadCSV(firstCsvBtn.getAttribute("data-csv"));
+    updatePageTitle();
+  }
+  // 啟動彈幕功能
+  loadDanmakuCSV();
+});
+
+/**********************
+ * 彈幕功能
+ **********************/
+let danmakuList = [];
+let totalDanmakuWeight = 0;
+let danmakuIntervalId = null;
+let danmakuEnabled = true; // 新增變數來追蹤彈幕狀態
+
+function loadDanmakuCSV() {
+  fetch("danmaku.csv")
+    .then((response) => response.text())
+    .then((text) => {
+      const lines = text.trim().split("\n");
+      danmakuList = [];
+      totalDanmakuWeight = 0;
+      for (let i = 1; i < lines.length; i++) {
+        const parts = lines[i].split(",");
+        if (parts.length < 2) {
+          console.error(`彈幕 CSV 第 ${i + 1} 行資料不足，跳過：${lines[i]}`);
+          continue;
+        }
+        const message = parts[0].trim();
+        const weight = parseFloat(parts[1]);
+        if (isNaN(weight) || weight <= 0) continue;
+        danmakuList.push({ message, weight });
+        totalDanmakuWeight += weight;
+      }
+      startDanmakuInterval();
+    })
+    .catch((error) => console.error("讀取彈幕 CSV 發生錯誤:", error));
+}
+
+function chooseDanmaku() {
+  if (danmakuList.length === 0) return null;
+  let r = Math.random() * totalDanmakuWeight;
+  for (const item of danmakuList) {
+    r -= item.weight;
+    if (r <= 0) return item.message;
+  }
+  return danmakuList[danmakuList.length - 1].message;
+}
+
+function createDanmaku(message) {
+  const container = document.getElementById("danmaku-container");
+  if (!container) return;
+  const danmakuEl = document.createElement("div");
+  danmakuEl.className = "danmaku-item";
+  danmakuEl.textContent = message;
+  danmakuEl.style.top = Math.random() * 90 + "%";
+  container.appendChild(danmakuEl);
+  danmakuEl.addEventListener("animationend", () => {
+    danmakuEl.remove();
+  });
+}
+
+function startDanmakuInterval() {
+  stopDanmakuInterval();
+  if (danmakuEnabled) {
+    danmakuIntervalId = setInterval(() => {
+      const msg = chooseDanmaku();
+      if (msg) {
+        createDanmaku(msg);
+      }
+    }, 4800);
+  }
+}
+
+function stopDanmakuInterval() {
+  if (danmakuIntervalId !== null) {
+    clearInterval(danmakuIntervalId);
+    danmakuIntervalId = null;
+  }
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    stopDanmakuInterval();
+  } else {
+    clearDanmaku();
+    startDanmakuInterval();
+  }
+});
+
+/**********************
+ * 彈幕開關按鈕事件處理
+ **********************/
+const danmakuToggleBtn = document.getElementById("danmaku-toggle");
+danmakuToggleBtn.addEventListener("click", () => {
+  danmakuEnabled = !danmakuEnabled;
+  if (danmakuEnabled) {
+    danmakuToggleBtn.textContent = "彈幕 ON";
+    startDanmakuInterval();
+  } else {
+    danmakuToggleBtn.textContent = "彈幕 OFF";
+    stopDanmakuInterval();
+    clearDanmaku();
+  }
+});
+
 
 const gameReleasesData = [
   {
