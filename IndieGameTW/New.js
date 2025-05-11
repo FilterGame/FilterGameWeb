@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const img = document.createElement("img");
     img.src = release.imageUrl;
     img.alt = release.title;
-    img.className = "object-cover w-full h-full";
+    img.className = "object-contain w-full h-full bg-white";
     imgWrap.append(img);
     // 文字內容
     const info = document.createElement("div");
