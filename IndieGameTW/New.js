@@ -198,13 +198,6 @@ if (navLang.startsWith("zh")) {
       });
 
 window.addEventListener("DOMContentLoaded", () => {
-  const firstCsvBtn = document.querySelector(".csv-btn");
-  if (firstCsvBtn) {
-    firstCsvBtn.style.backgroundColor = "red";
-    currentCSVButton = firstCsvBtn;
-    loadCSV(firstCsvBtn.getAttribute("data-csv"));
-    updatePageTitle();
-  }
   // 啟動彈幕功能
   loadDanmakuCSV();
 });
