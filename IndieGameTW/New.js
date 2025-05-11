@@ -42,25 +42,61 @@ const gameReleasesData = [
   },
   {
     id: "5",
-    title: "Rocket Penguin",
-    description: "一款可愛的飛行遊戲，玩家控制一隻帶著火箭背包的企鵝飛越各種障礙。",
-    releaseDate: "2024-12-20",
-    imageUrl: "images/games/rocket-penguin.jpg",
-    developer: "冰原企鵝",
-    tags: ["休閒", "動作", "飛行"],
-    steamUrl: "https://store.steampowered.com/app/example5",
+    title: "Recall: Empty Wishes 空願",
+    description: "基於2010年代臺灣背景的心理驚悚作品。自從弟弟子維神秘地失蹤後，姊姊子晴決定尋找其失蹤真相。子晴越是深入調查，越是陷入現實與幻境的邊界之中，令人不安的秘密也將被一層層揭開。",
+    releaseDate: "2025-2-13",
+    imageUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1683270/header.jpg",
+    developer: "Puff Hook Studio",
+    tags: ["心理恐怖", "劇情豐富", "冒險"],
+    steamUrl: "https://store.steampowered.com/app/1683270/Recall_Empty_Wishes/",
   },
   {
     id: "6",
-    title: "鍛鐵之路：鐵匠傳奇",
-    description: "一款關於鐵匠工藝的模擬遊戲，玩家將學習鍛造技術，打造各種武器裝備。",
-    releaseDate: "2024-11-15",
-    imageUrl: "images/games/path-of-gear.jpg",
-    developer: "鐵匠工作室",
-    tags: ["模擬", "工藝", "角色扮演"],
-    steamUrl: "https://store.steampowered.com/app/example6",
+    title: "都市傳說冒險團2 ：分身",
+    description: "《都市傳說冒險團2：分身》是一款以現代城市為舞台，探尋都市傳說的沉浸式冒險遊戲",
+    releaseDate: "2025-4-25",
+    imageUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651290/header_tchinese.jpg",
+    developer: "Toii Games",
+    tags: ["冒險", "視覺小說", "探索"],
+    steamUrl: "https://store.steampowered.com/app/2651290/2/",
   },
+	{
+    id: "7",
+    title: "英勇紋章",
+    description: "英勇紋章是一款 Roguelike 牌組構築遊戲。你可以組成多達三人的小隊或是孤身前行，運用不同角色與職業的卡牌組合為你的牌組帶來千變萬化的戰術。打造獨一無二的牌組以克服在黯霧所籠罩的碎域中隱藏的重重阻礙，並證明你的英勇！",
+    releaseDate: "2025-3-24",
+    imageUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1864830/header_tchinese.jpg",
+    developer: "Far Star Studio",
+    tags: ["卡牌對戰", "輕度Rouge", "卡牌遊戲"],
+    steamUrl: "https://store.steampowered.com/app/1864830/_/",
+  },
+	{
+    id: "8",
+    title: "靈能哨衛 : 無限 Psionic Sentry : Infinite",
+    description: "[靈能哨衛:無限]是一款第三人稱的美少女動作射擊Rougelike， 爽快但任何玩家都能上手的反擊系統是遊戲操作的核心， 在戰鬥中觀察敵人的弱點將其破除則是遊戲策略的重點。",
+    releaseDate: "2025-2-3",
+    imageUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2598800/header_tchinese.jpg",
+    developer: "Roy, 響雨互動娛樂,",
+    tags: ["女主人翁", "日本動畫", "第三人稱射擊"],
+    steamUrl: "https://store.steampowered.com/app/2598800/___Psionic_Sentry__Infinite/",
+  },
+
 ];
+
+// --- 未發售關注遊戲資料（依定義順序顯示） ---
+const unreleasedGamesData = [
+  {
+    id: "a1",
+    title: "AirBoost:天空機士",
+    description: "像素風少女動作遊戲，預定 2025 Q4 發售。",
+    imageUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2325390/header_tchinese.jpg",
+    developer: "FilterGame",
+    tags: ["日本動畫", "女主人翁", "可愛"],
+    steamUrl: "https://store.steampowered.com/app/2325390/AirBoost/"
+  },
+  // ...其他未發售項目
+];
+
 
 // 取得「近期發售」並依日期降冪排序
 function getRecentReleases() {
@@ -172,4 +208,66 @@ document.addEventListener("DOMContentLoaded", () => {
 
     container.append(item);
   });
+  
+    // ==== 新增：渲染「未發售關注列表」 ====
+  const unreleasedContainer = document.getElementById("unreleased-container");
+  unreleasedGamesData.forEach((game) => {
+    // 複用時間軸樣式：但不排序、直接按照陣列順序
+    const item = document.createElement("div");
+    item.className = "flex mb-16 relative";
+
+    // 左側只顯示「待」字，不顯示日期
+    const dateBox = document.createElement("div");
+    dateBox.className = "w-[120px] pr-4 pt-4 flex flex-col items-end";
+    const label = document.createElement("div");
+    label.className = "text-lg font-bold text-gray-500";
+    label.textContent = "待"; // 或你想要的標示
+    dateBox.append(label);
+    item.append(dateBox);
+
+    // 連接點 & 線（可跟已發售相同）
+    const dot = document.createElement("div");
+    dot.className = "absolute left-[120px] top-[30px] w-3 h-3 bg-gray-400 rounded-full transform -translate-x-1/2 z-10";
+    const line = document.createElement("div");
+    line.className = "absolute left-[120px] top-[30px] h-0.5 w-[40px] border-t-2 border-dashed border-gray-300";
+    item.append(dot, line);
+
+    // 右側卡片，同已發售邏輯
+    const card = document.createElement("div");
+    card.className = "ml-10 flex-1 bg-white rounded-lg shadow-md overflow-hidden";
+    const flex = document.createElement("div");
+    flex.className = "flex flex-col md:flex-row";
+    const imgWrap = document.createElement("div");
+    imgWrap.className = "md:w-1/3 relative h-[200px]";
+    const img = document.createElement("img");
+    img.src = game.imageUrl;
+    img.alt = game.title;
+    img.className = "object-cover w-full h-full";
+    imgWrap.append(img);
+
+    const info = document.createElement("div");
+    info.className = "p-4 md:w-2/3";
+    info.innerHTML = `
+      <h3 class="text-xl font-bold mb-2">${game.title}</h3>
+      <p class="text-gray-700 mb-3">${game.description}</p>
+      <div class="flex flex-wrap gap-2 mb-3">
+        ${game.tags.map(t => `<span class="bg-gray-100 text-gray-800 px-2 py-1 rounded-md text-sm">${t}</span>`).join("")}
+      </div>
+      <div class="flex justify-between items-center">
+        <div class="text-sm text-gray-600">開發商: ${game.developer}</div>
+        <a href="${game.steamUrl}"
+           target="_blank" rel="noopener"
+           class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700 transition">
+          詳細
+        </a>
+      </div>
+    `;
+    flex.append(imgWrap, info);
+    card.append(flex);
+    item.append(card);
+
+    unreleasedContainer.append(item);
+  });
+	
+  
 });
