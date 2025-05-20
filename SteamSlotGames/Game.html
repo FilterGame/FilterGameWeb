@@ -313,8 +313,8 @@
 
                 // 假設 CSV 格式是: 遊戲STEAM網址,遊戲名稱 (順序可能需要調整)
                 // 找到 "遊戲STEAM網址" 和 "遊戲名稱" 的欄位索引
-                const urlIndex = headers.findIndex(h => h.includes("網址") || h.includes("Link") || h.includes("URL"));
-                const nameIndex = headers.findIndex(h => h.includes("名稱") || h.includes("Name") || h.includes("Title"));
+                const urlIndex = headers.findIndex(h => h.includes("網址") || h.includes("steamLink") || h.includes("URL"));
+                const nameIndex = headers.findIndex(h => h.includes("名稱") || h.includes("title_zh") || h.includes("Title"));
 
                 if (urlIndex === -1 || nameIndex === -1) {
                     console.error("CSV 檔案中找不到 '遊戲STEAM網址' 或 '遊戲名稱' 欄位。請檢查CSV標頭。");
