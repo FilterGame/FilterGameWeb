@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>短文分享墙</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles if needed, or to mimic framer-motion initial animation */
+        body {
+            overscroll-behavior-y: contain; /* Prevents pull-to-refresh on mobile when dragging */
+        }
+        .post-card-enter {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .post-card-enter-active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .dragging {
+            cursor: grabbing !important;
+            z-index: 1000 !important; /* Ensure dragged card is on top */
+        }
+        /* For dark mode compatibility with Tailwind if you add a toggle later */
+        /* .dark { ... } */
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 dark:bg-slate-900 p-4">
+    <main>
+        <h1 class="text-3xl font-bold text-center mb-8 text-slate-800 dark:text-slate-100">短文分享墙</h1>
+        <div id="posts-container-wrapper" class="relative min-h-[calc(100vh-100px)]">
+            <!-- Posts will be injected here -->
+        </div>
+        <div id="load-more-trigger" class="h-20 w-full flex justify-center items-center mt-4">
+            <div id="loading-indicator" class="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900 dark:border-gray-100" style="display: none;"></div>
+        </div>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
