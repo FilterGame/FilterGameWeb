@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam 遊戲抽獎機</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #1b2838; /* Steam Dark Grey */
+            color: #c7d5e0; /* Steam Light Grey */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
+        }
+
+        .game-track-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 900px; /* Max width of the track */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .game-track {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Responsive grid */
+            gap: 15px;
+            padding: 20px;
+            background-color: #2a475e; /* Steam Blue Grey */
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            width: 100%;
+        }
+
+        .game-cell {
+            background-color: #17212b; /* Darker Cell Background */
+            border: 2px solid #00000000; /* Transparent border initially */
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.1s linear;
+            aspect-ratio: 2 / 3; /* Maintain aspect ratio for images */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: default;
+        }
+
+        .game-cell img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            flex-grow: 1;
+            min-height: 0; /* Allow image to shrink if needed */
+        }
+
+        .game-cell .game-name {
+            font-size: 0.8rem;
+            padding: 8px 5px;
+            background-color: rgba(0,0,0,0.7);
+            color: #fff;
+            width: 100%;
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .game-cell.highlighted {
+            border-color: #66c0f4; /* Steam Blue for highlight */
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #66c0f4;
+        }
+
+        .spin-button-container {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .spin-button {
+            background: linear-gradient(to bottom, #799900 5%, #536900 100%); /* Steam Green Gradient */
+            border: 1px solid #536900;
+            border-radius: 50%; /* Circular button */
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            padding: 20px;
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+            text-shadow: 0px 1px 0px #2f6627;
+            box-shadow: 0px 10px 14px -7px #3e7327;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spin-button:hover {
+            background: linear-gradient(to bottom, #536900 5%, #799900 100%);
+        }
+
+        .spin-button:active {
+            transform: translateY(2px);
+            box-shadow: 0px 5px 10px -5px #3e7327;
+        }
+
+        .spin-button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.7;
+            box-shadow: none;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background-color: #2a475e; /* Steam Blue Grey */
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 30px rgba(0,0,0,0.7);
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            height: auto;
+            max-height: 450px; /* library_600x900 */
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 3px solid #66c0f4;
+        }
+
+        .modal-content h2 {
+            color: #66c0f4; /* Steam Blue */
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-content a {
+            color: #c7d5e0; /* Steam Light Grey */
+            text-decoration: none;
+            background-color: #66c0f430; /* Light blue background */
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+        }
+         .modal-content a:hover {
+            background-color: #66c0f460; /* Darker blue on hover */
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.8rem;
+            color: #c7d5e0;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .close-button:hover {
+            color: #fff;
+        }
+
+        /* Particle Canvas */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Make canvas non-interactive */
+            z-index: 999; /* Below modal, above other content */
+        }
+
+        /* Loading indicator */
+        .loader {
+            border: 8px solid #f3f3f320; /* Light grey */
+            border-top: 8px solid #66c0f4; /* Steam Blue */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 50px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .game-track {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+                padding: 15px;
+            }
+            .game-cell .game-name {
+                font-size: 0.7rem;
+            }
+            .spin-button {
+                width: 120px;
+                height: 120px;
+                font-size: 1.5rem;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+            .modal-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+         @media (max-width: 480px) {
+            .game-track {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 8px;
+                padding: 10px;
+            }
+             .game-cell .game-name {
+                font-size: 0.6rem;
+                padding: 5px 3px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1 class="text-4xl font-bold my-8 text-center text-shadow">Steam 遊戲隨機抽！</h1>
+
+    <div class="game-track-container">
+        <div id="gameTrack" class="game-track">
+            <div id="loadingIndicator" class="col-span-full flex justify-center items-center">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="spin-button-container">
+        <button id="spinButton" class="spin-button" disabled>載入中...</button>
+    </div>
+
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <button id="closeModalButton" class="close-button">&times;</button>
+            <h2 id="winnerGameName"></h2>
+            <img id="winnerGameImage" src="" alt="遊戲圖片">
+            <a id="winnerGameLink" href="" target="_blank">前往 Steam 商店頁面</a>
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script>
+        const gameTrack = document.getElementById('gameTrack');
+        const spinButton = document.getElementById('spinButton');
+        const resultModal = document.getElementById('resultModal');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const winnerGameName = document.getElementById('winnerGameName');
+        const winnerGameImage = document.getElementById('winnerGameImage');
+        const winnerGameLink = document.getElementById('winnerGameLink');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        const ctx = confettiCanvas.getContext('2d');
+
+        let games = [];
+        let gameCells = [];
+        let idleAnimationInterval;
+        let isSpinning = false;
+
+        // 遊戲資料 (將由CSV讀取)
+        // 範例: { name: "遊戲A", steamLink: "https://store.steampowered.com/app/12345/", appId: "12345", imageUrl: "..." }
+
+        // 1. 讀取並解析 CSV
+        async function loadGamesFromCSV() {
+            try {
+                const response = await fetch('cards2.csv'); // 確保 cards2.csv 與 HTML 文件在同一目錄，或提供正確路徑
+                if (!response.ok) {
+                    throw new Error(`無法載入 CSV 檔案: ${response.statusText}`);
+                }
+                const csvText = await response.text();
+                const rows = csvText.split('\\n').filter(row => row.trim() !== ''); // Adjusted to handle \n from user input
+                const headers = rows[0].split(',').map(header => header.trim());
+                const gameData = [];
+
+                // 假設 CSV 格式是: 遊戲STEAM網址,遊戲名稱 (順序可能需要調整)
+                // 找到 "遊戲STEAM網址" 和 "遊戲名稱" 的欄位索引
+                const urlIndex = headers.findIndex(h => h.includes("網址") || h.includes("steamLink") || h.includes("URL"));
+                const nameIndex = headers.findIndex(h => h.includes("名稱") || h.includes("title_zh") || h.includes("Title"));
+
+                if (urlIndex === -1 || nameIndex === -1) {
+                    console.error("CSV 檔案中找不到 '遊戲STEAM網址' 或 '遊戲名稱' 欄位。請檢查CSV標頭。");
+                    alert("CSV 檔案格式錯誤，請檢查標頭是否包含 '遊戲STEAM網址' 和 '遊戲名稱'。");
+                    loadingIndicator.innerHTML = "<p class='text-red-400'>CSV 檔案格式錯誤</p>";
+                    return;
+                }
+
+
+                for (let i = 1; i < rows.length; i++) {
+                    const values = rows[i].split(',').map(value => value.trim());
+                    if (values.length >= Math.max(urlIndex, nameIndex) + 1) {
+                        const steamLink = values[urlIndex];
+                        const name = values[nameIndex].replace(/"/g, ''); // 去除名稱中的引號
+
+                        if (steamLink && name) {
+                            const appId = extractAppId(steamLink);
+                            if (appId) {
+                                const imageUrl = `https://steamcdn-a.akamaihd.net/steam/apps/${appId}/library_600x900_2x.jpg`;
+                                gameData.push({ name, steamLink, appId, imageUrl });
+                            } else {
+                                console.warn(`無法從 ${steamLink} 提取 appId`);
+                            }
+                        }
+                    }
+                }
+                games = gameData;
+                if (games.length > 0) {
+                    displayGames();
+                    spinButton.disabled = false;
+                    spinButton.textContent = "開始抽獎";
+                    loadingIndicator.style.display = 'none';
+                    startIdleAnimation();
+                } else {
+                    console.error("CSV中沒有有效的遊戲資料。");
+                    loadingIndicator.innerHTML = "<p class='text-yellow-400'>CSV中沒有有效的遊戲資料或圖片無法載入。</p>";
+                    spinButton.textContent = "無遊戲";
+                }
+            } catch (error) {
+                console.error("載入遊戲時發生錯誤:", error);
+                loadingIndicator.innerHTML = `<p class='text-red-400'>載入遊戲失敗: ${error.message}. <br>請確保 'cards2.csv' 檔案存在於網站的根目錄下。</p>`;
+                spinButton.textContent = "錯誤";
+            }
+        }
+
+        // 2. 從 Steam 連結提取 AppID
+        function extractAppId(steamLink) {
+            const regex = /\/app\/(\d+)\//;
+            const match = steamLink.match(regex);
+            return match ? match[1] : null;
+        }
+
+        // 3. 在軌道上顯示遊戲
+        function displayGames() {
+            gameTrack.innerHTML = ''; // 清空現有內容
+            gameCells = []; // 清空 cell 陣列
+            games.forEach((game, index) => {
+                const cell = document.createElement('div');
+                cell.classList.add('game-cell');
+                cell.dataset.index = index;
+
+                const img = document.createElement('img');
+                img.src = game.imageUrl;
+                img.alt = game.name;
+                // 圖片載入失敗時的處理
+                img.onerror = function() {
+                    img.src = `https://placehold.co/600x900/1b2838/c7d5e0?text=${encodeURIComponent(game.name.substring(0,15))}`; // 備用圖片
+                    console.warn(`圖片載入失敗: ${game.imageUrl} for ${game.name}`);
+                };
+
+
+                const nameDiv = document.createElement('div');
+                nameDiv.classList.add('game-name');
+                nameDiv.textContent = game.name;
+
+                cell.appendChild(img);
+                cell.appendChild(nameDiv);
+                gameTrack.appendChild(cell);
+                gameCells.push(cell);
+            });
+
+            if (gameCells.length === 0) {
+                 loadingIndicator.style.display = 'block';
+                 loadingIndicator.innerHTML = "<p class='text-yellow-400'>沒有遊戲可以顯示。請檢查CSV檔案。</p>";
+                 spinButton.disabled = true;
+                 spinButton.textContent = "無遊戲";
+            }
+        }
+
+
+        // 4. 待機動畫 (循環高亮)
+        let currentHighlightIndex = 0;
+        function startIdleAnimation() {
+            if (gameCells.length === 0) return;
+            stopIdleAnimation(); // 確保先停止任何正在運行的動畫
+            idleAnimationInterval = setInterval(() => {
+                gameCells.forEach(cell => cell.classList.remove('highlighted'));
+                gameCells[currentHighlightIndex].classList.add('highlighted');
+                currentHighlightIndex = (currentHighlightIndex + 1) % gameCells.length;
+            }, 300); // 每 300ms 切換一次高亮
+        }
+
+        function stopIdleAnimation() {
+            clearInterval(idleAnimationInterval);
+            gameCells.forEach(cell => cell.classList.remove('highlighted'));
+        }
+
+        // 5. 抽獎按鈕事件
+        spinButton.addEventListener('click', () => {
+            if (isSpinning || games.length === 0) return;
+            isSpinning = true;
+            spinButton.disabled = true;
+            spinButton.textContent = "抽獎中...";
+            stopIdleAnimation();
+            runSpinAnimation();
+        });
+
+        // 6. 抽獎動畫
+        async function runSpinAnimation() {
+            let highlightSpeed = 50; // 初始速度 (ms) - 越小越快
+            let slowdownCounter = 0;
+            const totalSpins = gameCells.length * 2 + Math.floor(Math.random() * gameCells.length); // 至少轉2圈 + 隨機位置
+            let currentSpin = 0;
+            let currentIndex = 0;
+
+            // 選定中獎遊戲
+            const winningIndex = Math.floor(Math.random() * games.length);
+
+            function animateHighlight() {
+                gameCells.forEach(cell => cell.classList.remove('highlighted'));
+                gameCells[currentIndex].classList.add('highlighted');
+
+                currentSpin++;
+                currentIndex = (currentIndex + 1) % gameCells.length;
+
+                // 動畫減速邏輯
+                // 前半段快速，後半段逐漸減速
+                if (currentSpin > totalSpins * 0.3) { // 開始減速的點
+                    slowdownCounter++;
+                    if (slowdownCounter % 3 === 0) { // 每3次高亮增加一次延遲
+                         highlightSpeed += Math.max(10, Math.floor(highlightSpeed * 0.08)); // 增加延遲，但至少增加10ms
+                    }
+                }
+                if (currentSpin > totalSpins * 0.7) { // 後段大幅減速
+                     highlightSpeed += Math.max(20, Math.floor(highlightSpeed * 0.15));
+                }
+
+
+                if (currentSpin < totalSpins || (currentSpin >= totalSpins && currentIndex !== winningIndex)) {
+                    // 如果還沒轉到總圈數，或者已經超過總圈數但還沒停在正確的 winningIndex 上，則繼續
+                     if (currentSpin >= totalSpins && currentIndex === winningIndex && highlightSpeed > 300) {
+                        // 確保最後停在 winningIndex，且速度已經夠慢
+                        finishSpin(winningIndex);
+                    } else {
+                        setTimeout(animateHighlight, highlightSpeed);
+                    }
+                } else {
+                     // 確保最後停在 winningIndex
+                    finishSpin(winningIndex);
+                }
+            }
+            animateHighlight(); // 啟動動畫循環
+        }
+
+
+        function finishSpin(winningIndex) {
+            gameCells.forEach(cell => cell.classList.remove('highlighted'));
+            const winnerCell = gameCells[winningIndex];
+            if (winnerCell) {
+                winnerCell.classList.add('highlighted');
+                showWinner(games[winningIndex]);
+            } else {
+                // Fallback if somehow winnerCell is undefined
+                console.error("Winning cell not found for index:", winningIndex);
+                showWinner(games[0] || {name: "錯誤", steamLink: "#", imageUrl: ""}); // Show first game or error
+            }
+
+            isSpinning = false;
+            spinButton.disabled = false;
+            spinButton.textContent = "再次抽獎";
+            startIdleAnimation(); // 抽獎結束後重新開始待機動畫
+        }
+
+
+        // 7. 顯示中獎遊戲彈窗
+        function showWinner(game) {
+            winnerGameName.textContent = game.name;
+            winnerGameImage.src = game.imageUrl;
+            winnerGameImage.alt = game.name;
+            winnerGameImage.onerror = function() {
+                winnerGameImage.src = `https://placehold.co/600x900/1b2838/c7d5e0?text=${encodeURIComponent(game.name.substring(0,15))}`;
+            };
+            winnerGameLink.href = game.steamLink;
+            resultModal.style.display = 'flex';
+            triggerConfetti();
+        }
+
+        // 8. 關閉彈窗
+        closeModalButton.addEventListener('click', () => {
+            resultModal.style.display = 'none';
+            stopConfetti();
+        });
+        resultModal.addEventListener('click', (event) => {
+            if (event.target === resultModal) { // 點擊背景關閉
+                resultModal.style.display = 'none';
+                stopConfetti();
+            }
+        });
+
+
+        // 9. 彩帶粒子效果
+        let particles = [];
+        let animationFrameId;
+
+        function Particle() {
+            this.x = confettiCanvas.width / 2;
+            this.y = confettiCanvas.height / 2;
+            this.size = Math.random() * 7 + 3; // 粒子大小 3-10
+            this.speedX = Math.random() * 6 - 3; // 水平速度 -3 到 3
+            this.speedY = Math.random() * -10 - 5; // 垂直速度 -5 到 -15 (向上)
+            this.color = `hsl(${Math.random() * 360}, 100%, 70%)`; // 隨機鮮豔顏色
+            this.opacity = 1;
+            this.rotation = Math.random() * 360;
+            this.spin = Math.random() < 0.5 ? -1 : 1 * (Math.random() * 2); // 旋轉速度和方向
+        }
+
+        Particle.prototype.update = function() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.speedY += 0.2; // 重力
+            this.opacity -= 0.01; // 淡出
+            this.rotation += this.spin;
+            if (this.y > confettiCanvas.height) {
+                this.opacity = 0; // 如果掉出畫面，使其消失
+            }
+        };
+
+        Particle.prototype.draw = function() {
+            ctx.save();
+            ctx.globalAlpha = this.opacity;
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rotation * Math.PI / 180);
+            ctx.fillStyle = this.color;
+            ctx.fillRect(-this.size / 2, -this.size / 2, this.size * (Math.random()*0.5+0.5), this.size * (Math.random()*0.5+1.5) ); // 長方形粒子
+            ctx.restore();
+        };
+
+        function createParticles() {
+            particles = [];
+            const particleCount = 200; // 粒子數量
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateConfetti() {
+            if (!confettiCanvas) return;
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+            ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+            particles.forEach((particle, index) => {
+                if (particle.opacity > 0) {
+                    particle.update();
+                    particle.draw();
+                } else {
+                    particles.splice(index, 1); // 移除消失的粒子
+                }
+            });
+
+            if (particles.length > 0) {
+                animationFrameId = requestAnimationFrame(animateConfetti);
+            } else {
+                 ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height); // 清除畫布
+            }
+        }
+
+        function triggerConfetti() {
+            if (!confettiCanvas) return;
+            createParticles();
+            animateConfetti();
+        }
+        function stopConfetti() {
+             particles = []; // 清空粒子數組以停止動畫
+             if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+             }
+             if(ctx) ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height); // 清除畫布
+        }
+
+        // 響應式調整 Canvas 大小
+        window.addEventListener('resize', () => {
+            if (confettiCanvas) {
+                confettiCanvas.width = window.innerWidth;
+                confettiCanvas.height = window.innerHeight;
+            }
+        });
+
+
+        // 頁面載入時初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            if (confettiCanvas) {
+                 confettiCanvas.width = window.innerWidth;
+                 confettiCanvas.height = window.innerHeight;
+            }
+            loadGamesFromCSV();
+        });
+    </script>
+</body>
+</html>
