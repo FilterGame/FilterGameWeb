@@ -298,7 +298,7 @@ function createPostCardElement(post) {
   // 分類標籤
   const tagClass = CATEGORY_COLORS[post.category] || CATEGORY_COLORS['全部'];
   const categoryBadge = `
-    <span class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[10px] ${tagClass}">
+    <span class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[12px] ${tagClass}">
       ${post.category}
     </span>`;
 
@@ -311,6 +311,9 @@ function createPostCardElement(post) {
         ${globeIconSVG}
       </a>`;
   }
+  
+  buttonsHtml += categoryBadge;
+  
   buttonsHtml += `
       <button class="flex items-center text-xs hover:text-blue-500 dark:hover:text-blue-400">
         ${messageCircleIconSVG}${post.comments}

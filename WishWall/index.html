@@ -18,10 +18,12 @@
         .post-card-enter-active {
             opacity: 1;
             transform: scale(1);
+			touch-action: none;    /* 禁用滚动，允许 preventDefault() */
         }
         .dragging {
             cursor: grabbing !important;
             z-index: 1000 !important; /* Ensure dragged card is on top */
+			touch-action: none;    /* 拖动中一并禁用滚动 */
         }
         /* For dark mode compatibility with Tailwind if you add a toggle later */
         /* .dark { ... } */
