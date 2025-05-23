@@ -134,6 +134,44 @@ export const mockPosts = [
     image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1144240/header.jpg?t=1736504133", 
 	officialUrl: "https://x.com/Bibi47881139",
   },
+    {
+    id: "11",
+    content: "我要做出搞笑又無厘頭的黃油!!",
+    date: "2025-05-23",
+    author: {
+      id: "F",
+      name: "鬥魂物語 ：番長之路",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=F",
+    },
+    url: "https://pabobabo.itch.io/path-to-bancho",
+	category: "遊戲",
+    image: "https://filtergame.com/WishWall/Img/ID_11.png", 
+  },
+    {
+    id: "12",
+    content: "剛剛獲得去京都Bitsummit的機會。努力修改版本中！希望年底能夠出一版DEMO上ITCH.IO。再請大家期待嘍！",
+    date: "2025-05-23",
+    author: {
+      id: "B",
+      name: "布林布林哥布林",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=B",
+    },
+    url: "https://store.steampowered.com/app/3109180/Bling_Bling_Goblin/?l=tchinese",
+	category: "遊戲",
+  },
+    {
+    id: "13",
+    content: "歡迎來我們小鎮玩玩唷",
+    date: "2025-05-23",
+    author: {
+      id: "BB",
+      name: "Back of Beyond (禁外之地)",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=BB",
+    },
+    url: "https://store.steampowered.com/app/3539480/Back_of_Beyond",
+    image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3539480/f7c97d843c54cc91376d07a11d9390c27f804afc/capsule_616x353.jpg", 
+	category: "遊戲",
+  },
 
 
   
