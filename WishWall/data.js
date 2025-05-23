@@ -93,6 +93,21 @@ export const mockPosts = [
 	officialUrl: "https://varket.cc/",
     image: "https://filtergame.com/WishWall/Img/ID_7.png", 
   },
+    {
+    id: "8",
+    content: "新作Boss之一的魔理沙",
+    date: "2025-05-23",
+    author: {
+      id: "TR",
+      name: "【無声透明Vtuber】強化人間【ミラージュコロイド系Vtuber】",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=TR",
+    },
+    url: "https://x.com/trombeningen/status/1868483872343883928",
+	category: "遊戲",
+	officialUrl: "https://x.com/trombeningen/status/1868483872343883928",
+    image: "https://pbs.twimg.com/media/Gd1s5YwboAA633X?format=png", 
+  },
+
 
   
 ];
