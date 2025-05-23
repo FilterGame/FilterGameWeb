@@ -172,6 +172,32 @@ export const mockPosts = [
     image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3539480/f7c97d843c54cc91376d07a11d9390c27f804afc/capsule_616x353.jpg", 
 	category: "遊戲",
   },
+    {
+    id: "14",
+    content: "那個...我雖然大部分都是幫遊戲團隊做BGM，不過也有幫動畫配樂啦，也有自己出專輯，不知道是否也算ACG領域XD 總之目前也還是在世界的某個角落好好努力著。",
+    date: "2025-05-23",
+    author: {
+      id: "T",
+      name: "幽火的音樂工作室",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=T",
+    },
+    url: "https://kevintpoptpop.wixsite.com/tpopstudio",
+	category: "遊戲",
+	officialUrl: "https://www.facebook.com/tpopstudio",
+  },
+    {
+    id: "15",
+    content: "5/31布穀町Z02，歡迎試玩！",
+    date: "2025-05-23",
+    author: {
+      id: "bakusan",
+      name: "微笑的貘",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=bakusan",
+    },
+    url: "https://home.gamer.com.tw/artwork.php?sn=6148644",
+	category: "遊戲",
+	officialUrl: "https://home.gamer.com.tw/artwork.php?sn=6148644",
+  },
 
 
   
