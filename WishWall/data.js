@@ -120,6 +120,20 @@ export const mockPosts = [
 	category: "遊戲",
     image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3196150/library_hero.jpg", 
   },
+    {
+    id: "10",
+    content: "嘗試一人美術程式音樂的處女作終於在今年完成了 學到了很多, 接下來打算用畢生所學做黃油 讚",
+    date: "2025-05-23",
+    author: {
+      id: "Bibi",
+      name: "翻車魚冒險",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=Bibi",
+    },
+    url: "https://store.steampowered.com/app/1144240/_/",
+	category: "遊戲",
+    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1144240/header.jpg?t=1736504133", 
+	officialUrl: "https://x.com/Bibi47881139",
+  },
 
 
   
