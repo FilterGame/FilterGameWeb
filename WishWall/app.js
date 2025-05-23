@@ -12,6 +12,7 @@ function formatDate(dateString) {
 const CATEGORIES = ['全部', '遊戲', '漫畫', '插畫', '小說', 'Vtubr'];
 // 為各分類指定顏色（Tailwind color class，可自行調整）
 const CATEGORY_COLORS = {
+  '系統': 'bg-gray-200 text-gray-800',
   '遊戲': 'bg-blue-200 text-blue-800',
   '漫畫': 'bg-red-200 text-red-800',
   '插畫': 'bg-green-200 text-green-800',
@@ -201,7 +202,7 @@ function buildFilterBar() {
     btn.className = `
       px-3 py-1 rounded-full text-xs 
       ${CATEGORY_COLORS[cat]} 
-      hover:opacity-80
+      hover:opacity-90
     `;
     // 預設「全部」加粗
     if (cat === currentFilter) {
@@ -311,16 +312,8 @@ function createPostCardElement(post) {
         ${globeIconSVG}
       </a>`;
   }
-  
-  buttonsHtml += categoryBadge;
-  
+    
   buttonsHtml += `
-      <button class="flex items-center text-xs hover:text-blue-500 dark:hover:text-blue-400">
-        ${messageCircleIconSVG}${post.comments}
-      </button>
-      <button class="flex items-center text-xs hover:text-gray-500 dark:hover:text-gray-400">
-        ${share2IconSVG}
-      </button>
     </div>`;
 
   // 組合整張卡片

@@ -3,76 +3,28 @@ export const mockPosts = [
     id: "1",
     content:
       "大家好!這裡是台灣遊戲開發組FilterGame,正在努力製作AirBoost:天空機士,是個像素動作+美少女風格的遊戲! 希望大家也會喜歡!",
-    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/2325390/header_tchinese.jpg?t=1747810688", // Using placehold.co for demo
+    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/2325390/header_tchinese.jpg?t=1747810688", 
     url: "https://store.steampowered.com/app/2325390/AirBoost/",
-    date: "2024-05-20T10:30:00Z",
+    date: "2025-05-23",
     author: {
       id: "user1",
       name: "FilterGame遊戲開發",
       avatar: "https://placehold.co/50x50/CBD5E0/4A5568?text=KO", // Using placehold.co for demo
     },
-    likes: 277,
-    comments: 10,
 	officialUrl: "https://filtergame.com/",
 	category: "遊戲",
   },
   {
     id: "2",
-    content: "探索未来的前端技术：WebAssembly 与 JavaScript 的融合之路。性能与可移植性的新高度！",
-    image: "https://placehold.co/600x400/D1FAE5/065F46?text=Tech+Post",
-    url: "https://example.com/post2",
-    date: "2024-05-21T12:00:00Z",
+    content: "這裡是系統！歡迎大家使用表單投稿！這裡是給2025從事ACG相關創作作者說說自己進展跟生存報告的地方，一個人理論上是一篇，等新年會再開新的板塊！也希望能讓大家有一個溫馨的地方，一起努力創作！",
+    date: "2025-05-23",
     author: {
-      id: "user2",
-      name: "前端开发者",
-      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=前端",
+      id: "系統",
+      name: "系統",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=INFO",
     },
-    likes: 152,
-    comments: 25,
+	category: "系統",
   },
-  {
-    id: "3",
-    content: "今日的午后甜点：自制草莓芝士蛋糕，配上一杯手冲咖啡，完美！ #美食 #甜点",
-    image: "https://placehold.co/600x400/FEF3C7/92400E?text=Dessert",
-    // no url for this one
-    date: "2024-05-22T15:45:00Z",
-    author: {
-      id: "user3",
-      name: "美食家小李",
-      avatar: "https://placehold.co/50x50/FCE7F3/831843?text=小李",
-    },
-    likes: 301,
-    comments: 40,
-  },
-  // Add 10-20 more posts here to test infinite scroll
-  {
-    id: "4",
-    content: "GitHub Pages 新功能发布：现在支持更复杂的静态站点部署流程。",
-    image: "https://placehold.co/600x400/E0E7FF/3730A3?text=GitHub",
-    url: "https://example.com/post4",
-    date: "2024-05-23T09:15:00Z",
-    author: {
-      id: "user4",
-      name: "DevOps 先锋",
-      avatar: "https://placehold.co/50x50/D1FAE5/065F46?text=DO",
-    },
-    likes: 99,
-    comments: 5,
-  },
-  {
-    id: "5",
-    content: "周末徒步计划：征服城市周边的XX山，风景绝佳，空气清新。",
-    // no image for this one
-    url: "https://example.com/post5",
-    date: "2024-05-24T18:00:00Z",
-    author: {
-      id: "user5",
-      name: "户外爱好者",
-      avatar: "https://placehold.co/50x50/E0E7FF/3730A3?text=户外",
-    },
-    likes: 120,
-    comments: 18,
-  }
 ];
 
 // Simulate fetching posts
