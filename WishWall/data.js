@@ -198,6 +198,21 @@ export const mockPosts = [
 	category: "遊戲",
 	officialUrl: "https://home.gamer.com.tw/artwork.php?sn=6148644",
   },
+    {
+    id: "16",
+    content: "由台灣遊戲團隊舉辦的Steam特賣！【東亞獨立遊戲慶典 2025】正在準備中！",
+    date: "2025-05-24",
+    author: {
+      id: "EA",
+      name: "東亞獨立遊戲慶典 2025",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=EAIG",
+    },
+    url: "https://gameexpo.filtergame.com/",
+	category: "遊戲",
+	officialUrl: "https://gameexpo.filtergame.com/",
+	image: "https://filtergame.com/WishWall/Img/ID_16.png", 
+  },
+
 
 
   
