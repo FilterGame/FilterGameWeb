@@ -25,6 +25,34 @@ export const mockPosts = [
     },
 	category: "系統",
   },
+    {
+    id: "3",
+    content: "2個月把原本的遊戲架構大改了一番，並參加了巴哈ACG創作大賽",
+    date: "2025-05-23",
+    author: {
+      id: "HS",
+      name: "地獄貓工作室",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=HS",
+    },
+    url: "https://www.facebook.com/share/v/15nBuWyp99/",
+	category: "遊戲",
+  },
+    {
+    id: "4",
+    content: "大家好~我們5/31那天以「兔子茶會」名義，在台北圓山舉辦的「CooMIC二元創庫3」同人場攤位準備三款我開發的以Vtuber社團「米克斯學園」的二創小遊戲給大家試玩，目前也正在努力開發今年8月新的二創小遊戲哦~",
+    date: "2025-05-23",
+    author: {
+      id: "Mirai",
+      name: "兔子茶會",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=Mirai",
+    },
+    url: "https://x.com/Mirai_so_Sad/status/1924412309667193132",
+	category: "遊戲",
+	officialUrl: "https://miraisosad.itch.io",
+    image: "https://filtergame.com/WishWall/Img/ID_4.png", 
+  },
+
+  
 ];
 
 // Simulate fetching posts
