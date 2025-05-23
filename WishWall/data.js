@@ -65,6 +65,20 @@ export const mockPosts = [
 	officialUrl: "https://linktr.ee/yohcanstudio",
     image: "https://filtergame.com/WishWall/Img/ID_5.png", 
   },
+    {
+    id: "6",
+    content: "努力生存，努力製作百合遊戲！",
+    date: "2025-05-23",
+    author: {
+      id: "Yurif",
+      name: "Yurif",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=Yurif",
+    },
+    url: "https://www.facebook.com/yurif.original",
+	category: "遊戲",
+	officialUrl: "https://www.facebook.com/yurif.original",
+    image: "https://filtergame.com/WishWall/Img/ID_6.jpg", 
+  },
 
   
 ];
