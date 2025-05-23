@@ -9,7 +9,7 @@ function formatDate(dateString) {
 }
 
 // --- 常量定義 ---
-const CATEGORIES = ['全部', '遊戲', '漫畫', '插畫', '小說', 'Vtubr'];
+const CATEGORIES = ['全部', '遊戲', '漫畫', '插畫', '小說', 'Vtubr', '系統'];
 // 為各分類指定顏色（Tailwind color class，可自行調整）
 const CATEGORY_COLORS = {
   '系統': 'bg-gray-200 text-gray-800',
