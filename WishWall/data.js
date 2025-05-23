@@ -51,6 +51,20 @@ export const mockPosts = [
 	officialUrl: "https://miraisosad.itch.io",
     image: "https://filtergame.com/WishWall/Img/ID_4.png", 
   },
+    {
+    id: "5",
+    content: "有充足的肌肉，才能繼續開發遊戲！我要吃肉！",
+    date: "2025-05-23",
+    author: {
+      id: "YOH",
+      name: "葉開罐工作室",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=YOH",
+    },
+    url: "https://www.threads.com/@yohcanstudio/post/DJ-mMtzyznk?xmt=AQF04nqNi0HqsBiTpr20BOY8kzeEn45wajU8WrKYr5t_OQ",
+	category: "遊戲",
+	officialUrl: "https://linktr.ee/yohcanstudio",
+    image: "https://filtergame.com/WishWall/Img/ID_5.png", 
+  },
 
   
 ];
