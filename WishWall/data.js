@@ -2,17 +2,18 @@ export const mockPosts = [
   {
     id: "1",
     content:
-      "少女たちが危険な道路を探索するピクセル風アクション「AirBoost エアシップの旅士」の続報が「TOKYO INDIE GAMES SUMMIT 2025」に出展！",
-    image: "https://placehold.co/600x400/E2E8F0/4A5568?text=Post+Image+1", // Using placehold.co for demo
-    url: "https://example.com/post1",
+      "大家好!這裡是FilterGame,正在努力製作AirBoost:天空機士",
+    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/2325390/header_tchinese.jpg?t=1747810688", // Using placehold.co for demo
+    url: "https://store.steampowered.com/app/2325390/AirBoost/",
     date: "2024-05-20T10:30:00Z",
     author: {
       id: "user1",
-      name: "Gamer@ゲーム情報",
-      avatar: "https://placehold.co/50x50/CBD5E0/4A5568?text=A1", // Using placehold.co for demo
+      name: "FilterGame遊戲開發",
+      avatar: "https://placehold.co/50x50/CBD5E0/4A5568?text=KO", // Using placehold.co for demo
     },
     likes: 277,
     comments: 10,
+	officialUrl: "https://filtergame.com/",
   },
   {
     id: "2",
@@ -70,15 +71,7 @@ export const mockPosts = [
     },
     likes: 120,
     comments: 18,
-  },
-  // Add more posts...
-  { id: "6", content: "Post 6 content...", image: "https://placehold.co/600x400/cccccc/333333?text=P6", date: "2024-05-25T10:00:00Z", author: { id: "user6", name: "Author 6", avatar: "https://placehold.co/50x50/cccccc/333333?text=A6" }, likes: 50, comments: 3 },
-  { id: "7", content: "Post 7 content...", image: "https://placehold.co/600x400/cccccc/333333?text=P7", date: "2024-05-26T11:00:00Z", author: { id: "user7", name: "Author 7", avatar: "https://placehold.co/50x50/cccccc/333333?text=A7" }, likes: 60, comments: 6 },
-  { id: "8", content: "Post 8 content...", date: "2024-05-27T12:00:00Z", author: { id: "user8", name: "Author 8", avatar: "https://placehold.co/50x50/cccccc/333333?text=A8" }, likes: 70, comments: 7 },
-  { id: "9", content: "Post 9 content...", image: "https://placehold.co/600x400/cccccc/333333?text=P9", date: "2024-05-28T13:00:00Z", author: { id: "user9", name: "Author 9", avatar: "https://placehold.co/50x50/cccccc/333333?text=A9" }, likes: 80, comments: 8 },
-  { id: "10", content: "Post 10 content...", date: "2024-05-29T14:00:00Z", author: { id: "user10", name: "Author 10", avatar: "https://placehold.co/50x50/cccccc/333333?text=A10" }, likes: 90, comments: 9 },
-  { id: "11", content: "Post 11 content...", image: "https://placehold.co/600x400/cccccc/333333?text=P11", date: "2024-05-30T15:00:00Z", author: { id: "user11", name: "Author 11", avatar: "https://placehold.co/50x50/cccccc/333333?text=A11" }, likes: 100, comments: 10 },
-  { id: "12", content: "Post 12 content...", date: "2024-05-31T16:00:00Z", author: { id: "user12", name: "Author 12", avatar: "https://placehold.co/50x50/cccccc/333333?text=A12" }, likes: 110, comments: 11 },
+  }
 ];
 
 // Simulate fetching posts
