@@ -107,6 +107,19 @@ export const mockPosts = [
 	officialUrl: "https://x.com/trombeningen/status/1868483872343883928",
     image: "https://pbs.twimg.com/media/Gd1s5YwboAA633X?format=png", 
   },
+    {
+    id: "9",
+    content: "拉米好奇所以跑來看看0.0 明年一定要跟大家見面！！",
+    date: "2025-05-23",
+    author: {
+      id: "Lami",
+      name: "拉米：程式與咖啡",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=Lami",
+    },
+    url: "https://store.steampowered.com/app/3196150",
+	category: "遊戲",
+    image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3196150/library_hero.jpg", 
+  },
 
 
   
