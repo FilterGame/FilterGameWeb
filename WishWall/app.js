@@ -8,6 +8,19 @@ function formatDate(dateString) {
   return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
+// --- 常量定義 ---
+const CATEGORIES = ['全部', '遊戲', '漫畫', '插畫', '小說', 'Vtubr'];
+// 為各分類指定顏色（Tailwind color class，可自行調整）
+const CATEGORY_COLORS = {
+  '遊戲': 'bg-blue-200 text-blue-800',
+  '漫畫': 'bg-red-200 text-red-800',
+  '插畫': 'bg-green-200 text-green-800',
+  '小說': 'bg-yellow-200 text-yellow-800',
+  'Vtubr': 'bg-purple-200 text-purple-800',
+  '全部': 'bg-gray-200 text-gray-800',
+};
+
+
 // --- SVG ICON (Lucide) ---
 // 喜歡按鈕已移除，只保留留言/分享
 const messageCircleIconSVG = `
@@ -43,8 +56,11 @@ const loadMoreTrigger = document.getElementById('load-more-trigger');
 const loadingIndicator = document.getElementById('loading-indicator');
 
 // --- 全域狀態 --- 
-let posts = [];
+let allPosts = [];        // 原始所有貼文
+let displayedPosts = [];  // 目前畫面上要顯示的貼文
 let positions = {};       // { postId: { x, y, element } }
+let currentFilter = '全部';  // 目前篩選
+
 let isLoading = false;
 let allPostsLoaded = false;
 
@@ -171,6 +187,63 @@ function updateContainerHeight() {
   postsContainerWrapper.style.height = `${maxHeight}px`;
 }
 
+// ------------------------------
+// 建立上方篩選列
+// ------------------------------
+function buildFilterBar() {
+  const bar = document.createElement('div');
+  bar.className = 'flex flex-wrap gap-2 mb-4 justify-center';
+  
+  CATEGORIES.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.textContent = cat;
+    btn.dataset.filter = cat;
+    btn.className = `
+      px-3 py-1 rounded-full text-xs 
+      ${CATEGORY_COLORS[cat]} 
+      hover:opacity-80
+    `;
+    // 預設「全部」加粗
+    if (cat === currentFilter) {
+      btn.classList.add('font-semibold', 'ring-2', 'ring-offset-1');
+    }
+    btn.addEventListener('click', () => {
+      if (currentFilter === cat) return;
+      currentFilter = cat;
+      // 更新按鈕樣式
+      bar.querySelectorAll('button').forEach(b => {
+        b.classList.toggle('font-semibold', b.dataset.filter === cat);
+        b.classList.toggle('ring-2', b.dataset.filter === cat);
+      });
+      // 重新渲染
+      refreshDisplayedPosts();
+    });
+    bar.appendChild(btn);
+  });
+
+  // 插入到 container 之前
+  postsContainerWrapper.parentNode.insertBefore(bar, postsContainerWrapper);
+}
+
+// ------------------------------
+// 重新依 filter 產生並渲染貼文
+// ------------------------------
+function refreshDisplayedPosts() {
+  // 清空
+  postsContainerWrapper.innerHTML = '';
+  positions = {};
+  // 根據 filter 決定要顯示哪些
+  if (currentFilter === '全部') {
+    displayedPosts = allPosts.slice();
+  } else {
+    displayedPosts = allPosts.filter(p => p.category === currentFilter);
+  }
+  // 重新 scatter & render
+  generateInitialPositions(displayedPosts);
+  renderPosts(displayedPosts);
+}
+
+
 // 隨機產生不重疊的初始位置
 function generateInitialPositions(newPosts) {
   const containerWidth = postsContainerWrapper.clientWidth;
@@ -222,6 +295,13 @@ function createPostCardElement(post) {
     contentHtml = `<a href="${post.url}" target="_blank">${contentHtml}</a>`;
   }
 
+  // 分類標籤
+  const tagClass = CATEGORY_COLORS[post.category] || CATEGORY_COLORS['全部'];
+  const categoryBadge = `
+    <span class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[10px] ${tagClass}">
+      ${post.category}
+    </span>`;
+
   // 按鈕區塊：新增官方網站按鈕，若沒有 officialUrl 就不顯示
   let buttonsHtml = `<div class="flex space-x-3 text-slate-500 dark:text-slate-400">`;
   if (post.officialUrl) {
@@ -242,39 +322,42 @@ function createPostCardElement(post) {
 
   // 組合整張卡片
   card.innerHTML = `
-    <div class="p-3 pb-0 flex items-center space-x-2">
-      <div class="h-8 w-8 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400">
-        <img src="${avatarSrc}" alt="${post.author.name}" class="h-full w-full object-cover"
-             onerror="this.style.display='none'; this.parentElement.innerHTML='${post.author.name.slice(0,2)}';" />
+    <div class="relative">
+      ${categoryBadge}
+      <div class="p-3 pb-0 flex items-center space-x-2">
+        <div class="h-8 w-8 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400">
+          <img src="${avatarSrc}" alt="${post.author.name}" class="h-full w-full object-cover"
+               onerror="this.style.display='none'; this.parentElement.innerHTML='${post.author.name.slice(0,2)}';" />
+        </div>
+        <div class="flex flex-col">
+          <p class="text-sm font-medium text-slate-900 dark:text-slate-100">${post.author.name}</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400">${formatDate(post.date)}</p>
+        </div>
       </div>
-      <div class="flex flex-col">
-        <p class="text-sm font-medium text-slate-900 dark:text-slate-100">${post.author.name}</p>
-        <p class="text-xs text-slate-500 dark:text-slate-400">${formatDate(post.date)}</p>
-      </div>
-    </div>
-    <div class="p-3">${contentHtml}</div>
-    <div class="p-3 pt-0 flex justify-between">
-      ${buttonsHtml}
-    </div>
-  `;
+      <div class="p-3">${contentHtml}</div>
+		<div class="p-3 pt-0 flex justify-between items-center">
+		  ${buttonsHtml}
+		</div>
+    </div>`;
 
   enableDragging(card);
   return card;
 }
 
 // 將新貼文渲染到畫面
-function renderPosts(newPosts = []) {
+function renderPosts(postList) {
   const frag = document.createDocumentFragment();
-  newPosts.forEach((post, idx) => {
-    if (!positions[post.id].element) {
-      const el = createPostCardElement(post);
-      const pos = positions[post.id];
-      el.style.position = 'absolute';
-      el.style.left = `${pos.x}px`;
-      el.style.top = `${pos.y}px`;
-      positions[post.id].element = el;
-      frag.appendChild(el);
-      setTimeout(() => el.classList.add('post-card-enter-active'), 50 + idx * 50);
+  postList.forEach((post, idx) => {
+    const pos = positions[post.id];
+    if (!pos.element) {
+      const cardEl = createPostCardElement(post);
+      cardEl.style.position = 'absolute';
+      cardEl.style.left = `${pos.x}px`;
+      cardEl.style.top = `${pos.y}px`;
+      positions[post.id].element = cardEl;
+      frag.appendChild(cardEl);
+      // 淡入動畫
+      setTimeout(() => cardEl.classList.add('post-card-enter-active'), 50 + idx * 50);
     }
   });
   postsContainerWrapper.appendChild(frag);
@@ -282,16 +365,19 @@ function renderPosts(newPosts = []) {
 }
 
 // 無限滾動觀察器
-const observer = new IntersectionObserver(async ([entry]) => {
-  if (entry.isIntersecting && !isLoading && !allPostsLoaded) {
-    isLoading = true;
-    loadingIndicator.style.display = 'block';
+const observer = new IntersectionObserver(async ([ent]) => {
+  if (ent.isIntersecting && !isLoading && !allPostsLoaded) {
+    isLoading = true; loadingIndicator.style.display = 'block';
     try {
-      const more = await apiFetchMorePosts(posts.length);
+      const more = await apiFetchMorePosts(allPosts.length);
       if (more.length) {
-        posts.push(...more);
-        generateInitialPositions(more);
-        renderPosts(more);
+        allPosts.push(...more);
+        // 只有「全部」時才動態載入更多；若有篩選，需再 refresh
+        if (currentFilter === '全部') {
+          displayedPosts.push(...more);
+          generateInitialPositions(more);
+          renderPosts(more);
+        }
       } else {
         allPostsLoaded = true;
         loadMoreTrigger.style.display = 'none';
@@ -299,39 +385,38 @@ const observer = new IntersectionObserver(async ([entry]) => {
     } catch (err) {
       console.error(err);
     } finally {
-      isLoading = false;
-      loadingIndicator.style.display = 'none';
+      isLoading = false; loadingIndicator.style.display = 'none';
     }
   }
 }, { threshold: 0.5 });
 
+
+
 // 初始化應用
 async function initializeApp() {
-  isLoading = true;
-  loadingIndicator.style.display = 'block';
+  // 建立篩選列
+  buildFilterBar();
+
+  // 載入初始貼文
+  isLoading = true; loadingIndicator.style.display = 'block';
   try {
     const initial = await apiFetchInitialPosts(0, 10);
-    if (initial.length) {
-      posts = initial;
-      generateInitialPositions(posts);
-      renderPosts(posts);
-      observer.observe(loadMoreTrigger);
-    } else {
-      allPostsLoaded = true;
-      loadMoreTrigger.style.display = 'none';
-    }
+    allPosts = initial;
+    displayedPosts = initial.slice();
+    generateInitialPositions(displayedPosts);
+    renderPosts(displayedPosts);
+    observer.observe(loadMoreTrigger);
   } catch (err) {
     console.error(err);
   } finally {
-    isLoading = false;
-    loadingIndicator.style.display = 'none';
+    isLoading = false; loadingIndicator.style.display = 'none';
   }
 
-  // 調整視窗大小時更新容器高度
+  // 視窗調整時更新高度
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(updateContainerHeight, 250);
+    resizeTimer = setTimeout(updateContainerHeight, 200);
   });
 }
 

@@ -2,7 +2,7 @@ export const mockPosts = [
   {
     id: "1",
     content:
-      "大家好!這裡是FilterGame,正在努力製作AirBoost:天空機士",
+      "大家好!這裡是台灣遊戲開發組FilterGame,正在努力製作AirBoost:天空機士,是個像素動作+美少女風格的遊戲! 希望大家也會喜歡!",
     image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/2325390/header_tchinese.jpg?t=1747810688", // Using placehold.co for demo
     url: "https://store.steampowered.com/app/2325390/AirBoost/",
     date: "2024-05-20T10:30:00Z",
@@ -14,6 +14,7 @@ export const mockPosts = [
     likes: 277,
     comments: 10,
 	officialUrl: "https://filtergame.com/",
+	category: "遊戲",
   },
   {
     id: "2",
