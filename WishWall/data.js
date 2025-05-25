@@ -268,7 +268,20 @@ export const mockPosts = [
 	image: "https://filtergame.com/WishWall/Img/ID_20.png", 
   },
 
-  
+     {
+    id: "21",
+    content: "遊戲製作熱情暫時又沒惹，最近來休息吧(ﾉ>ω<)ﾉ(休息的同時支持小眾音樂創作者的創作)",
+    date: "2025-05-25",
+    author: {
+      id: "Keaton",
+      name: "凱特",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=K",
+    },
+	category: "遊戲",
+    url: "https://www.bk-mod.com/",
+	image: "https://filtergame.com/WishWall/Img/ID_21.png", 
+  },
+
 ];
 
 // Simulate fetching posts
