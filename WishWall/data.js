@@ -282,6 +282,48 @@ export const mockPosts = [
 	image: "https://filtergame.com/WishWall/Img/ID_21.png", 
   },
 
+     {
+    id: "22",
+    content: "單人製作的乙女遊戲［死神遊記］緩慢開發中，暫時沒多少東西可以看，打算等進度多一點再來研究宣傳🥰",
+    date: "2025-05-25",
+    author: {
+      id: "otome",
+      name: "伊忻［死神遊記］",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=otome",
+    },
+	category: "遊戲",
+    url: "https://clusters.tw/profile/2D2CDAA9-2500-45CC-8143-A1555AFB0920/works?creatorFields=game",
+	image: "https://images.plurk.com/7DgclrbgRARtTuvtwzpmmv.jpg", 
+  },
+
+     {
+    id: "23",
+    content: "致力推廣聲音在遊戲的角色或地位，不定時開放免費科普課程、免費音效包和音效教學等等。最近就是當個音效監督，有需要也可以諮詢！",
+    date: "2025-05-25",
+    author: {
+      id: "S",
+      name: "Shurahotla音效工作室",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=S",
+    },
+	category: "遊戲",
+    url: "https://linktr.ee/Shurahotla",
+  },
+
+     {
+    id: "24",
+    content: "台灣獨立遊戲列表-IndieGameTW！收入台灣steam遊戲兩百款!歡迎來多關注關注喔!也可以登錄自己的遊戲!",
+    date: "2025-05-25",
+    author: {
+      id: "TW",
+      name: "台灣獨立遊戲列表-IndieGameTW",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=TW",
+    },
+	category: "遊戲",
+    url: "https://filtergame.com/IndieGameTW/IndieGameTW.html",
+	officialUrl: "https://filtergame.com/IndieGameTW/IndieGameTW.html",
+	image: "https://filtergame.com/WishWall/Img/ID_24.jfif", 
+  },
+
 ];
 
 // Simulate fetching posts
