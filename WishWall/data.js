@@ -315,7 +315,7 @@ export const mockPosts = [
     date: "2025-05-25",
     author: {
       id: "TW",
-      name: "台灣獨立遊戲列表-IndieGameTW",
+      name: "IndieGameTW",
       avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=TW",
     },
 	category: "遊戲",
@@ -323,6 +323,23 @@ export const mockPosts = [
 	officialUrl: "https://filtergame.com/IndieGameTW/IndieGameTW.html",
 	image: "https://filtergame.com/WishWall/Img/ID_24.jfif", 
   },
+
+     {
+    id: "25",
+    content: "大家好，這裡是枷鎖天空個人社團，我是弓茶。我所製作的劇情向長篇故事《歸宿之國I》預計將於2025年底發售，目前Steam遊戲頁面與Demo版已發佈，歡迎試玩，有興趣也歡迎將遊戲加入願望清單喔！",
+    date: "2025-05-25",
+    author: {
+      id: "Y",
+      name: "枷鎖天空",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=Y",
+    },
+	category: "遊戲",
+    url: "https://store.steampowered.com/app/3345780/1/",
+	officialUrl: "https://x.com/yumicha_RMgame",
+	image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3345780/header_tchinese.jpg", 
+  },
+
+
 
 ];
 
