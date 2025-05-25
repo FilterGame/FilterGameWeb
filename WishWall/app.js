@@ -396,7 +396,7 @@ async function initializeApp() {
   // 載入初始貼文
   isLoading = true; loadingIndicator.style.display = 'block';
   try {
-    const initial = await apiFetchInitialPosts(0, 10);
+    const initial = await apiFetchInitialPosts(0, mockPosts.length);
     allPosts = initial;
     displayedPosts = initial.slice();
     generateInitialPositions(displayedPosts);
