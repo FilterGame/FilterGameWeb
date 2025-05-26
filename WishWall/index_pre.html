@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台灣ACG創作者-2025生存確認貼文牆</title>
+	
+	<meta name="description" content="IndieGameWebTW | FilterGame IndieGame Dev Site"/>
+
+	<meta property="og:title" content="台灣ACG創作者-2025生存確認貼文牆 - FilterGame">
+	<meta property="og:description" content="台灣ACG創作者-2025生存確認貼文牆 | FilterGame!">
+	<meta property="og:image" content="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2325390/header.jpg">
+	<meta property="og:url" content="https://filtergame.com/WishWall/">
+	<meta property="og:type" content="website">
+
+	
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles if needed, or to mimic framer-motion initial animation */
+        body {
+            overscroll-behavior-y: contain; /* Prevents pull-to-refresh on mobile when dragging */
+        }
+        .post-card-enter {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .post-card-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            touch-action: none;    /* 禁用滚动，允許 preventDefault() */
+        }
+        .dragging {
+            cursor: grabbing !important;
+            z-index: 1000 !important; /* Ensure dragged card is on top */
+            touch-action: none;    /* 拖动中一并禁用滚动 */
+        }
+		
+		  @media (max-width: 640px) {
+    /* 把外層容器變成靜態流佈局 */
+    #posts-container-wrapper {
+      position: static !important;
+      height: auto !important;
+    }
+    /* 把每張卡片改成相對定位，自然間距 */
+    #posts-container-wrapper > div {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      margin-bottom: 1rem;
+    }
+  }
+
+		
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 dark:bg-slate-900 p-4">
+
+    <!-- 固定頂部導覽列（從 IndieGameWebTW 移植） -->
+    <div class="fixed-top bg-white shadow-md w-full z-50">
+      <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center h-14">
+        <div class="logo">
+          <a href="https://filtergame.com/" class="font-bold text-lg">FilterGame</a>
+        </div>
+        <nav class="flex space-x-4">
+          <div class="relative group">
+            <button class="py-2">首頁 ▼</button>
+            <div class="absolute left-0 mt-1 bg-white shadow-lg rounded opacity-0 group-hover:opacity-100 transition-opacity">
+              <a href="https://filtergame.com/" class="block px-4 py-2 hover:bg-gray-100">首頁</a>
+              <a href="https://www.youtube.com/@FilterGameDev" class="block px-4 py-2 hover:bg-gray-100">Youtube</a>
+              <a href="https://x.com/FilterGame_Dev" class="block px-4 py-2 hover:bg-gray-100">Twitter(X)</a>
+            </div>
+          </div>
+          <div class="relative group">
+            <button class="py-2">遊戲 ▼</button>
+            <div class="absolute left-0 mt-1 bg-white shadow-lg rounded opacity-0 group-hover:opacity-100 transition-opacity">
+              <a href="https://store.steampowered.com/app/2325390?utm_source=web" target="_blank" class="block px-4 py-2 hover:bg-gray-100">AirBoost:天空機士</a>
+            </div>
+          </div>
+          <div class="relative group">
+            <button class="py-2">企劃&宣傳 ▼</button>
+            <div class="absolute left-0 mt-1 bg-white shadow-lg rounded opacity-0 group-hover:opacity-100 transition-opacity">
+              <a href="/IndieGameTW/IndieGameTW.html" target="_blank" class="block px-4 py-2 hover:bg-gray-100">IndieGameWebTW</a>
+              <a href="https://gameexpo.filtergame.com/" target="_blank" class="block px-4 py-2 hover:bg-gray-100">東亞遊戲特賣2025</a>
+              <a href="https://www.youtube.com/@FilterGameDev" class="block px-4 py-2 hover:bg-gray-100">Youtube</a>
+            </div>
+          </div>
+          <div class="relative group">
+            <button class="py-2">貼文投稿 ▼</button>
+            <div class="absolute left-0 mt-1 bg-white shadow-lg rounded opacity-0 group-hover:opacity-100 transition-opacity">
+              <a href="https://forms.gle/BJ22Y9v5Xf53yid59" target="_blank" class="block px-4 py-2 hover:bg-gray-100">投稿貼文</a>
+              <a href="https://discord.gg/ENVdsZSn3z" target="_blank" class="block px-4 py-2 hover:bg-gray-100">Discord</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!-- 預留固定頂部高度 -->
+    <div style="height: 56px;"></div>
+
+    <main>
+        <h1 class="text-3xl font-bold text-center mb-8 text-slate-800 dark:text-slate-100">台灣ACG創作者-2025生存確認貼文牆</h1>
+        <div id="posts-container-wrapper" class="relative min-h-[calc(100vh-100px)]">
+            <!-- Posts will be injected here -->
+        </div>
+        <div id="load-more-trigger" class="h-20 w-full flex justify-center items-center mt-4">
+            <div id="loading-indicator" class="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900 dark:border-gray-100" style="display: none;"></div>
+        </div>
+    </main>
+
+    <script type="module" src="app_pre.js"></script>
+</body>
+</html>
