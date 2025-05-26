@@ -35,6 +35,23 @@
             z-index: 1000 !important; /* Ensure dragged card is on top */
             touch-action: none;    /* 拖动中一并禁用滚动 */
         }
+		
+		  @media (max-width: 640px) {
+    /* 把外層容器變成靜態流佈局 */
+    #posts-container-wrapper {
+      position: static !important;
+      height: auto !important;
+    }
+    /* 把每張卡片改成相對定位，自然間距 */
+    #posts-container-wrapper > div {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      margin-bottom: 1rem;
+    }
+  }
+
+		
     </style>
 </head>
 <body class="min-h-screen bg-slate-50 dark:bg-slate-900 p-4">

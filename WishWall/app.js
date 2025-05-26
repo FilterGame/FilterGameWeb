@@ -274,7 +274,7 @@ function generateInitialPositions(newPosts) {
 // 建立一張貼文卡片的 DOM
 function createPostCardElement(post) {
   const card = document.createElement('div');
-  card.className = "w-[280px] shadow-lg hover:shadow-xl transition-shadow duration-200 cursor-grab bg-white dark:bg-slate-800 select-none post-card-enter";
+  card.className = "w-full max-w-[280px] shadow-lg hover:shadow-xl transition-shadow duration-200 cursor-grab bg-white dark:bg-slate-800 select-none post-card-enter";
   card.dataset.postId = post.id;
 
   // 預設頭像與貼圖
