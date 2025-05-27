@@ -207,9 +207,9 @@ export const mockPosts = [
       name: "東亞獨立遊戲慶典 2025",
       avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=EAIG",
     },
-    url: "https://gameexpo.filtergame.com/",
+    url: "https://eaigc.filtergame.com/",
 	category: "遊戲",
-	officialUrl: "https://gameexpo.filtergame.com/",
+	officialUrl: "https://eaigc.filtergame.com/",
 	image: "https://filtergame.com/WishWall/Img/ID_16.png", 
   },
 
@@ -337,6 +337,21 @@ export const mockPosts = [
     url: "https://store.steampowered.com/app/3345780/1/",
 	officialUrl: "https://x.com/yumicha_RMgame",
 	image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3345780/header_tchinese.jpg", 
+  },
+
+     {
+    id: "26",
+    content: "阿....要趕demo好累，要找發行商好累(眼神死",
+    date: "2025-05-25",
+    author: {
+      id: "The  Dream of Limbo",
+      name: "夢遊邊境",
+      avatar: "https://placehold.co/50x50/C7D2FE/3730A3?text=D",
+    },
+	category: "遊戲",
+    url: "https://store.steampowered.com/app/2658230/_The_dream_of_Limbo/",
+	officialUrl: "https://store.steampowered.com/app/2658230/_The_dream_of_Limbo/",
+	image: "https://store.steampowered.com/gfxproxy/betagfx/apps/2658230/header_tchinese.jpg", 
   },
 
 
