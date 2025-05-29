@@ -383,7 +383,16 @@ const gameReleasesData = [
     tags: ["女主人翁", "日本動畫", "第三人稱射擊"],
     steamUrl: "https://store.steampowered.com/app/2598800/___Psionic_Sentry__Infinite/",
   },
-
+	{
+    id: "9",
+    title: "龍神的新娘外傳：神社經營考試～考不過就重修～",
+    description: "《龍神的新娘外傳：神社經營考試～考不過就重修》是一款簡單輕鬆的點擊小遊戲。玩家透過協助主角們解決客人的問題，提高神社評價的迷你小遊戲。",
+    releaseDate: "2025-5-20",
+    imageUrl: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3710010/9d3607026fea5f7a4b1e9645206cdf106afc8417/header_tchinese.jpg",
+    developer: "ReIris,",
+    tags: ["點擊遊戲", "日本動畫", "視覺小說"],
+    steamUrl: "https://store.steampowered.com/app/3710010/_/",
+  },
 ];
 
 // --- 未發售關注遊戲資料（依定義順序顯示） ---
