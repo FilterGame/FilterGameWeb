@@ -255,7 +255,7 @@ function loadCSV(csvFile) {
       for (let i = 1; i < lines.length; i++) {
         try {
           const row = lines[i].split(",");
-          if (row.length < 4) {
+          if (row.length < 5) {
             console.error(`第 ${i + 1} 行資料不足欄位，將跳過：${lines[i]}`);
             continue;
           }
@@ -279,6 +279,8 @@ function loadCSV(csvFile) {
         const title_en = row[1].trim();
         const title_zh = row[2].trim();
         const title_ja = row[3].trim();
+		const image_fx = row[4].trim();
+
         const regex = /\/app\/(\d+)\//;
         const match = steamLink.match(regex);
         if (!match) {
@@ -291,12 +293,15 @@ function loadCSV(csvFile) {
 
 		
         const appId = match[1];
-        const imageUrl = `https://steamcdn-a.akamaihd.net/steam/apps/${appId}/library_600x900_2x.jpg`;
+		const customImageUrl = image_fx && image_fx.trim() !== ''
+          ? image_fx.trim()
+          : null;
+
+        const imageUrl = customImageUrl || `https://steamcdn-a.akamaihd.net/steam/apps/${appId}/library_600x900_2x.jpg`;
         const cardDiv = document.createElement("div");
         cardDiv.className = "game-card";
         const aTag = document.createElement("a");
-		
-		
+
 		//新增UTM
 		const rawLink = (steamLink || "").trim();
 		if (rawLink === "") {
