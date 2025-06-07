@@ -255,7 +255,7 @@ function loadCSV(csvFile) {
       for (let i = 1; i < lines.length; i++) {
         try {
           const row = lines[i].split(",");
-          if (row.length < 4) {
+          if (row.length < 5) {
             console.error(`第 ${i + 1} 行資料不足欄位，將跳過：${lines[i]}`);
             continue;
           }
@@ -279,6 +279,8 @@ function loadCSV(csvFile) {
         const title_en = row[1].trim();
         const title_zh = row[2].trim();
         const title_ja = row[3].trim();
+		const image_fx = row[4].trim();
+
         const regex = /\/app\/(\d+)\//;
         const match = steamLink.match(regex);
         if (!match) {
@@ -287,13 +289,34 @@ function loadCSV(csvFile) {
           );
           return;
         }
+		
+
+		
         const appId = match[1];
-        const imageUrl = `https://steamcdn-a.akamaihd.net/steam/apps/${appId}/library_600x900_2x.jpg`;
+		const customImageUrl = image_fx && image_fx.trim() !== ''
+          ? image_fx.trim()
+          : null;
+
+        const imageUrl = customImageUrl || `https://steamcdn-a.akamaihd.net/steam/apps/${appId}/library_600x900_2x.jpg`;
         const cardDiv = document.createElement("div");
         cardDiv.className = "game-card";
         const aTag = document.createElement("a");
-        aTag.href = steamLink;
-        aTag.target = "_blank";
+
+		//新增UTM
+		const rawLink = (steamLink || "").trim();
+		if (rawLink === "") {
+		  // 若沒有 steamLink，就不加連結
+		  // 你可以改成 link.href = "#" 或乾脆跳過 append
+		  aTag.removeAttribute("href");
+		} else {
+		  // 用 Steam 正式域名當 base
+		  // 這樣即使 rawLink="/app/440/" 或以 "app/440" 開頭都 OK
+		  const steamUrl = new URL(rawLink, "https://store.steampowered.com");
+		  // 再加上 UTM
+		  steamUrl.searchParams.set("utm_source", "IndieGameWebTW");
+		  aTag.href = steamUrl.toString();
+		  aTag.target = "_blank";
+		}		
         aTag.rel = "noopener noreferrer";
         aTag.className =
           "block overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300";
