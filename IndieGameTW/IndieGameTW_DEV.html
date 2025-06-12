@@ -64,6 +64,7 @@
               <a href="/IndieGameTW/IndieGameTW.html" target="_blank" data-i18n="nav.planning.item1">IndieGameWebTW</a>
               <a href="https://eaigc.filtergame.com/" target="_blank" data-i18n="nav.planning.item2">東亞遊戲特賣2025</a>
   			  <a href="https://www.youtube.com/@FilterGameDev" >Youtube</a>
+  			  <a href="https://filtergame.com/WishWall/" >2025創作者生存確認</a>
             </div>
           </div>
 		  
@@ -116,9 +117,21 @@
       class="max-w-7xl mx-auto px-4 py-2 flex flex-col md:flex-row gap-4 md:space-x-4 md:sticky md:top-14 z-50"
     >
 	
+		<button
+        class="csv-btn"
+        data-csv="cards_eaigc.csv"
+        data-navtext
+        data-en="東亞遊戲慶典-台灣團隊列表"
+        data-zh="東亞遊戲慶典-台灣團隊列表"
+        data-ja="東亞遊戲慶典-台灣團隊列表"
+      >
+        東亞遊戲慶典-台灣團隊列表
+      </button>
+
+	
       <button
         class="csv-btn"
-        data-csv="cards_DEV.csv"
+        data-csv="cards2.csv"
         data-random="true"
         data-navtext
         data-en="Taiwan Domestic Steam Games - In Development"
@@ -162,16 +175,6 @@
       >
         海外友商steam列表
 
-      <button
-        class="csv-btn"
-        data-csv="cards.csv"
-        data-navtext
-        data-en="2025 Taipei Game Show - Taiwan Games"
-        data-zh="2025台北電玩展-台灣遊戲列表"
-        data-ja="2025台ペイゲームショー - 台湾ゲーム一覧"
-      >
-        2025台北電玩展-台灣遊戲列表
-      </button>
 
     </div>
 
@@ -211,6 +214,6 @@
       </div>
     </div>
 
-    <script src="app_DEV.js" type="module"></script>
+    <script src="app.js" type="module"></script>
   </body>
 </html>
