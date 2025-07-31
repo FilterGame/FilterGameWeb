@@ -393,6 +393,28 @@ const gameReleasesData = [
     tags: ["點擊遊戲", "日本動畫", "視覺小說"],
     steamUrl: "https://store.steampowered.com/app/3710010/_/",
   },
+  	{
+    id: "10",
+    title: "【試玩版】拉米：程式與咖啡",
+    description: "繼承爺爺的老咖啡廳卻遇到美少女機器人？！使出渾身解數開發不同道具，與可愛的拉米一起經營咖啡廳。迎接重重挑戰並且逐步揭開拉米的故事！",
+    releaseDate: "2025-7-31",
+    imageUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3196150/header.jpg",
+    developer: "ReIris",
+    tags: ["休閒", "模擬", "角色扮演"],
+    steamUrl: "https://store.steampowered.com/app/3196150/_/",
+  },
+  	{
+    id: "11",
+    title: "群島物語 - 實習鍊金術士的 90 天之旅",
+    description: "這是一款結合戰鬥與生活模擬的限時類輕養成遊戲，玩家將扮演學習中的鍊金術士，為了向父母證明自己的能力，獨自前往亞斯達小鎮。在這 90 天內，你會遇到怎樣的人，過著怎樣的生活呢？",
+    releaseDate: "2025-8-5",
+    imageUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3070650/973e04976a8d9867b55c619f4452b2e3f270e1ef/header.jpg",
+    developer: "ReIris",
+    tags: ["冒險", "角色扮演", "模擬"],
+    steamUrl: "https://store.steampowered.com/app/3070650/___90/",
+  },
+
+
 ];
 
 // --- 未發售關注遊戲資料（依定義順序顯示） ---
