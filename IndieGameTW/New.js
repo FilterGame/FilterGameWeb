@@ -413,6 +413,16 @@ const gameReleasesData = [
     tags: ["冒險", "角色扮演", "模擬"],
     steamUrl: "https://store.steampowered.com/app/3070650/___90/",
   },
+	{
+    id: "12",
+    title: "【試玩版】裝備之路: 鐵匠傳奇",
+    description: "《裝備之路: 鐵匠傳奇》是一款類牌組構築Roguelite遊戲，與大多遊戲使用獲得的戰利品進行戰鬥不同，玩家是幫助冒險者從戰鬥/事件/地形搜刮到的素材打造獨創且每輪不同體驗的武器素質與流派來與怪物對抗的鐵匠。",
+    releaseDate: "2025-8-1",
+    imageUrl: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3082000/afd30b4a3833cc93e745bf60708b9e10ec5dbe98/header_tchinese.jpg",
+    developer: "焊蛙遊戲工作室",
+    tags: ["策略類", "回合制策略", "Rogue輕度"],
+    steamUrl: "https://store.steampowered.com/app/3082000/_/",
+  },
 
 
 ];
